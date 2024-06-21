@@ -1,0 +1,49 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.12
+    commands:
+      - echo "Installing dependencies..."
+      - pip install --upgrade pip
+      - pip install boto3==1.34.42 # Assuming boto3 is a common dependency
+
+  pre_build:
+    commands:
+      - echo "Running pre-build actions..."
+      # Add any pre-build actions here, such as running SonarQube analysis
+
+  build:
+    commands:
+      - echo "Packaging CRUDOrders Lambda function..."
+      - cd Functions/CRUDOrders
+      - cp -r *.py package/
+      - cd package
+      - pip install --target=./ -r requirements.txt
+      - pip install --target=./package -r requirements.txt
+      - cd package
+      - zip -r ../../CRUDOrders.zip .
+      - cd ../..
+      - echo "Packaging CRUDWallet Lambda function..."
+      - cd Functions/CRUDWallet
+      - pip install --target=./package -r requirements.txt
+      - cd package
+      - zip -r ../../CRUDWallet.zip .
+      - cd ../..
+
+  post_build:
+    commands:
+      - echo "Uploading packaged functions to S3..."
+      - aws s3 cp CRUDOrders.zip s3://deployment-ad-system/
+      - aws s3 cp CRUDWallet.zip s3://deployment-ad-system/
+
+artifacts:
+  files:
+    - Functions/CRUDOrders/CRUDOrders.zip
+    - Functions/CRUDWallet/CRUDWallet.zip
+
+# Optionally, define environment variables
+environment:
+  variables:
+    BUCKET_NAME: "deployment-ad-system"
