@@ -36,7 +36,9 @@ phases:
       - cd package
       - ls -l
       - zip -r ../../CRUDWallet.zip .
-      - cd ../
+      - cd ..
+      - ls -l
+      - cd..
 
       - ls -l
       - echo "Packaging CloudFormation stack template..."
