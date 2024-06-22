@@ -69,9 +69,9 @@ phases:
       - ls -l
       - aws s3 cp stack.zip s3://deployment-ad-system/
       - cd Functions
-      - aws s3 cp CRUDOrders.zip s3://deployment-ad-system/
-      - aws s3 cp CRUDWallet.zip s3://deployment-ad-system/
-      - aws s3 cp CallBackLambda.zip s3://deployment-ad-system/
+      - aws s3 cp CRUDOrders.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
+      - aws s3 cp CRUDWallet.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
+      - aws s3 cp CallBackLambda.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
 
 artifacts:
   files:
