@@ -18,23 +18,28 @@ phases:
     commands:
       - echo "Packaging CRUDOrders Lambda function..."
       - cd Functions/CRUDOrders
+      - ls -l
       - mkdir -p package
       - cp -r *.py package/
       - cd package
+      - ls -l
       - zip -r ../../CRUDOrders.zip .
       - cd ../..
-
+      
       - echo "Packaging CRUDWallet Lambda function..."
-      - cd Functions/CRUDWallet
+      - cd Functions/CRUDWallet || { echo "Directory Functions/CRUDWallet does not exist"; exit 1; }
+      - ls -l
       - mkdir -p package
       - cp -r *.py package/
       - cd package
+      - ls -l
       - zip -r ../../CRUDWallet.zip .
       - cd ../..
 
   post_build:
     commands:
       - echo "Uploading packaged functions to S3..."
+      - ls -l
       - aws s3 cp CRUDOrders.zip s3://deployment-ad-system/
       - aws s3 cp CRUDWallet.zip s3://deployment-ad-system/
 
@@ -43,7 +48,6 @@ artifacts:
     - Functions/CRUDOrders/CRUDOrders.zip
     - Functions/CRUDWallet/CRUDWallet.zip
 
-# Optionally, define environment variables
 environment:
   variables:
     BUCKET_NAME: "deployment-ad-system"
