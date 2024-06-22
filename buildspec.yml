@@ -43,7 +43,7 @@ phases:
 
       - ls -l
       - echo "Packaging CloudFormation stack template..."
-      - cd CloudFormationTemplates
+      - cd CloudFormatTemplates
       - ls -l
       - zip -r ../stack.zip stack.yml
       - cd ..
