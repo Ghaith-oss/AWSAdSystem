@@ -12,34 +12,25 @@ phases:
   pre_build:
     commands:
       - echo "Running pre-build actions..."
+      # Add any pre-build actions here, such as running tests or other checks
 
   build:
     commands:
       - echo "Packaging CRUDOrders Lambda function..."
       - cd Functions/CRUDOrders
-      - echo "Current directory: $(pwd)"
-      - echo "Listing contents of Functions/CRUDOrders:"
-      - ls -l
       - mkdir -p package
       - cp -r *.py package/
       - cd package
-      - echo "Listing contents of Functions/CRUDOrders/package:"
-      - ls -l
       - zip -r ../../CRUDOrders.zip .
-      - cd ../..
+      - cd ..
 
       - echo "Packaging CRUDWallet Lambda function..."
-      - cd Functions/CRUDWallet
-      - echo "Current directory: $(pwd)"
-      - echo "Listing contents of Functions/CRUDWallet:"
-      - ls -l
+      - cd Functions/CRUDWallet  # Adjust path if needed
       - mkdir -p package
       - cp -r *.py package/
       - cd package
-      - echo "Listing contents of Functions/CRUDWallet/package:"
-      - ls -l
       - zip -r ../../CRUDWallet.zip .
-      - cd ../..
+      - cd ..
 
   post_build:
     commands:
@@ -49,9 +40,10 @@ phases:
 
 artifacts:
   files:
-    - CRUDOrders.zip
-    - CRUDWallet.zip
+    - Functions/CRUDOrders/CRUDOrders.zip
+    - Functions/CRUDWallet/CRUDWallet.zip
 
+# Optionally, define environment variables
 environment:
   variables:
     BUCKET_NAME: "deployment-ad-system"
