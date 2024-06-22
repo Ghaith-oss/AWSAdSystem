@@ -1,1410 +1,1352 @@
-
----
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Root Stack for AWS Amplify Console
+Metadata:
+  TemplateId: arn:aws:cloudformation:eu-north-1:513585459204:generatedTemplate/5c7e820f-85d7-4a27-93f0-5021b1a22d82
 Outputs:
-  AuthRoleName:
-    Value:
-      Ref: "AuthRole"
-  UnauthRoleArn:
-    Value:
-      Fn::GetAtt:
-      - "UnauthRole"
-      - "Arn"
   AuthRoleArn:
     Value:
       Fn::GetAtt:
-      - "AuthRole"
-      - "Arn"
-  Region:
+      - AuthRole
+      - Arn
+  AuthRoleName:
     Value:
-      Ref: "AWS::Region"
-    Export:
-      Name:
-        Fn::Sub: "${AWS::StackName}-Region"
-    Description: "CloudFormation provider root stack Region"
+      Ref: AuthRole
   DeploymentBucketName:
-    Value:
-      Ref: "DeploymentBucketName"
+    Description: CloudFormation provider root stack deployment bucket name
     Export:
       Name:
-        Fn::Sub: "${AWS::StackName}-DeploymentBucketName"
-    Description: "CloudFormation provider root stack deployment bucket name"
+        Fn::Sub: ${AWS::StackName}-DeploymentBucketName
+    Value:
+      Ref: DeploymentBucketName
+  Region:
+    Description: CloudFormation provider root stack Region
+    Export:
+      Name:
+        Fn::Sub: ${AWS::StackName}-Region
+    Value:
+      Ref: AWS::Region
+  StackId:
+    Description: CloudFormation provider root stack name
+    Export:
+      Name:
+        Fn::Sub: ${AWS::StackName}-StackId
+    Value:
+      Ref: AWS::StackId
+  StackName:
+    Description: CloudFormation provider root stack ID
+    Export:
+      Name:
+        Fn::Sub: ${AWS::StackName}-StackName
+    Value:
+      Ref: AWS::StackName
+  UnauthRoleArn:
+    Value:
+      Fn::GetAtt:
+      - UnauthRole
+      - Arn
   UnauthRoleName:
     Value:
-      Ref: "UnauthRole"
-  StackName:
-    Value:
-      Ref: "AWS::StackName"
-    Export:
-      Name:
-        Fn::Sub: "${AWS::StackName}-StackName"
-    Description: "CloudFormation provider root stack ID"
-  StackId:
-    Value:
-      Ref: "AWS::StackId"
-    Export:
-      Name:
-        Fn::Sub: "${AWS::StackName}-StackId"
-    Description: "CloudFormation provider root stack name"
-Metadata:
-  TemplateId: "arn:aws:cloudformation:eu-north-1:513585459204:generatedTemplate/5c7e820f-85d7-4a27-93f0-5021b1a22d82"
-AWSTemplateFormatVersion: "2010-09-09"
-Description: "Root Stack for AWS Amplify Console"
+      Ref: UnauthRole
 Parameters:
   AuthRoleName:
-    Default: "AuthRoleName"
-    Type: "String"
-    Description: "Name of the common deployment bucket provided by the parent stack"
-  LambdaFunction00CallbackLambda009zd6uCodeS3BucketOneOfGk0SN:
-    NoEcho: "true"
-    Type: "String"
-    Description: "An Amazon S3 bucket in the same AWS-Region as your function. The\
-      \ bucket can be in a different AWS-account.\nThis property can be replaced with\
-      \ other exclusive properties"
-  LambdaFunction00CRUDWallet00ycdDZCodeS3KeyOneOfyAKU2:
-    NoEcho: "true"
-    Type: "String"
-    Description: "The Amazon S3 key of the deployment package.\nThis property can\
-      \ be replaced with other exclusive properties"
-  LambdaFunction00CRUDWallet00ycdDZCodeS3BucketOneOfC4Y57:
-    NoEcho: "true"
-    Type: "String"
-    Description: "An Amazon S3 bucket in the same AWS-Region as your function. The\
-      \ bucket can be in a different AWS-account.\nThis property can be replaced with\
-      \ other exclusive properties"
+    Default: AuthRoleName
+    Description: Name of the common deployment bucket provided by the parent stack
+    Type: String
   DeploymentBucketName:
-    Default: "DeploymentBucket"
-    Type: "String"
-    Description: "Name of the common deployment bucket provided by the parent stack"
-  LambdaFunction00CallbackLambda009zd6uCodeS3KeyOneOfC7FRg:
-    NoEcho: "true"
-    Type: "String"
-    Description: "The Amazon S3 key of the deployment package.\nThis property can\
-      \ be replaced with other exclusive properties"
+    Default: DeploymentBucket
+    Description: Name of the common deployment bucket provided by the parent stack
+    Type: String
   LambdaFunction00CRUDOrders00fVTT5CodeS3BucketOneOfaTB6t:
-    NoEcho: "true"
-    Type: "String"
-    Description: "An Amazon S3 bucket in the same AWS-Region as your function. The\
-      \ bucket can be in a different AWS-account.\nThis property can be replaced with\
-      \ other exclusive properties"
-  UnauthRoleName:
-    Default: "UnAuthRoleName"
-    Type: "String"
-    Description: "Name of the common deployment bucket provided by the parent stack"
+    Description: 'An Amazon S3 bucket in the same AWS-Region as your function. The
+      bucket can be in a different AWS-account.
+
+      This property can be replaced with other exclusive properties'
+    NoEcho: 'true'
+    Type: String
   LambdaFunction00CRUDOrders00fVTT5CodeS3KeyOneOfankkE:
-    NoEcho: "true"
-    Type: "String"
-    Description: "The Amazon S3 key of the deployment package.\nThis property can\
-      \ be replaced with other exclusive properties"
+    Description: 'The Amazon S3 key of the deployment package.
+
+      This property can be replaced with other exclusive properties'
+    NoEcho: 'true'
+    Type: String
+  LambdaFunction00CRUDWallet00ycdDZCodeS3BucketOneOfC4Y57:
+    Description: 'An Amazon S3 bucket in the same AWS-Region as your function. The
+      bucket can be in a different AWS-account.
+
+      This property can be replaced with other exclusive properties'
+    NoEcho: 'true'
+    Type: String
+  LambdaFunction00CRUDWallet00ycdDZCodeS3KeyOneOfyAKU2:
+    Description: 'The Amazon S3 key of the deployment package.
+
+      This property can be replaced with other exclusive properties'
+    NoEcho: 'true'
+    Type: String
+  LambdaFunction00CallbackLambda009zd6uCodeS3BucketOneOfGk0SN:
+    Description: 'An Amazon S3 bucket in the same AWS-Region as your function. The
+      bucket can be in a different AWS-account.
+
+      This property can be replaced with other exclusive properties'
+    NoEcho: 'true'
+    Type: String
+  LambdaFunction00CallbackLambda009zd6uCodeS3KeyOneOfC7FRg:
+    Description: 'The Amazon S3 key of the deployment package.
+
+      This property can be replaced with other exclusive properties'
+    NoEcho: 'true'
+    Type: String
+  UnauthRoleName:
+    Default: UnAuthRoleName
+    Description: Name of the common deployment bucket provided by the parent stack
+    Type: String
 Resources:
-  CloudWatchAlarm00TargetTrackingtableCreditsProvisionedCapacityLow517e395bed8243e7bb98ac1a961b976000lAi2w:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::CloudWatch::Alarm"
-    DeletionPolicy: "Retain"
-    Properties:
-      ComparisonOperator: "LessThanThreshold"
-      Dimensions:
-      - Value:
-          Ref: "DynamoDBTable00Credits00bmNwR"
-        Name: "TableName"
-      Period: 300
-      EvaluationPeriods: 3
-      Namespace: "AWS/DynamoDB"
-      OKActions: []
-      AlarmActions:
-      - "arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:f5e845d8-86eb-41aa-af80-726860c96f44:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/5faa38a3-acf1-49a6-bd5d-f10e51635fc7"
-      MetricName: "ProvisionedReadCapacityUnits"
-      ActionsEnabled: true
-      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:f5e845d8-86eb-41aa-af80-726860c96f44:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/5faa38a3-acf1-49a6-bd5d-f10e51635fc7."
-      AlarmName: "TargetTracking-table/Credits-ProvisionedCapacityLow-517e395b-ed82-43e7-bb98-ac1a961b9760"
-      Statistic: "Average"
-      InsufficientDataActions: []
-      Tags: []
-      Threshold: 1
-  CloudWatchAlarm00TargetTrackingtabledevicesAlarmLow400dc9daab94481489d3b44ecd45e43b00DgvVE:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::CloudWatch::Alarm"
-    DeletionPolicy: "Retain"
-    Properties:
-      ComparisonOperator: "LessThanThreshold"
-      Dimensions:
-      - Value:
-          Ref: "DynamoDBTable00devices00dtXNS"
-        Name: "TableName"
-      Period: 60
-      EvaluationPeriods: 15
-      Namespace: "AWS/DynamoDB"
-      OKActions: []
-      AlarmActions:
-      - "arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:74cbaa66-3554-4c48-bed4-b08330e4ed77:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/77f8498d-a54d-46f3-b561-770147f050c5"
-      MetricName: "ConsumedReadCapacityUnits"
-      ActionsEnabled: true
-      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:74cbaa66-3554-4c48-bed4-b08330e4ed77:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/77f8498d-a54d-46f3-b561-770147f050c5."
-      AlarmName: "TargetTracking-table/devices-AlarmLow-400dc9da-ab94-4814-89d3-b44ecd45e43b"
-      Statistic: "Sum"
-      InsufficientDataActions: []
-      Tags: []
-      Threshold: 30
-  IAMManagedPolicy00policycallbackConsumerPolicy00FOvXm:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::IAM::ManagedPolicy"
-    DeletionPolicy: "Retain"
-    Properties:
-      ManagedPolicyName: "callbackConsumerPolicy"
-      Path: "/"
-      Description: ""
-      Groups: []
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-        - Resource: "arn:aws:sqs:eu-north-1:513585459204:CallBackQueue"
-          Action:
-          - "sqs:ReceiveMessage"
-          - "sqs:DeleteMessage"
-          - "sqs:GetQueueAttributes"
-          Effect: "Allow"
-      Roles:
-      - Ref: "IAMRole00CallbackLambdaroleazy4exej00hl6bx"
-      Users: []
-  LambdaEventSourceMapping00c4d7e7b711f64347ba87d4c8f471275a00J07wd:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::Lambda::EventSourceMapping"
-    DeletionPolicy: "Retain"
-    Properties:
-      BatchSize: 10
-      FunctionName:
-        Fn::GetAtt:
-        - "LambdaFunction00CRUDWallet00ycdDZ"
-        - "Arn"
-      Enabled: true
-      EventSourceArn:
-        Fn::GetAtt:
-        - "SQSQueue00CreditsQueuefifo00zm4VR"
-        - "Arn"
-      MaximumBatchingWindowInSeconds: 0
-  IAMRole00CallbackLambdaroleazy4exej00hl6bx:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::IAM::Role"
-    DeletionPolicy: "Retain"
-    Properties:
-      Path: "/service-role/"
-      ManagedPolicyArns:
-      - "arn:aws:iam::513585459204:policy/service-role/AWSLambdaBasicExecutionRole-041df3f8-e82f-43df-a37b-d3724fe81036"
-      - "arn:aws:iam::513585459204:policy/callbackConsumerPolicy"
-      - "arn:aws:iam::513585459204:policy/MonitoringCallback"
-      MaxSessionDuration: 3600
-      RoleName: "CallbackLambda-role-azy4exej"
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-        - Action: "sts:AssumeRole"
-          Effect: "Allow"
-          Principal:
-            Service: "lambda.amazonaws.com"
-  CloudWatchAlarm00TargetTrackingtableCreditsAlarmHigh8afc3d23c3c74154872cf972c2f726ad00fJ94k:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::CloudWatch::Alarm"
-    DeletionPolicy: "Retain"
-    Properties:
-      ComparisonOperator: "GreaterThanThreshold"
-      Dimensions:
-      - Value:
-          Ref: "DynamoDBTable00Credits00bmNwR"
-        Name: "TableName"
-      Period: 60
-      EvaluationPeriods: 2
-      Namespace: "AWS/DynamoDB"
-      OKActions: []
-      AlarmActions:
-      - "arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:03ac2a89-c3e3-42c8-9389-1b14e941460a:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/fac35973-b33b-46d0-8216-8fd8262e485b"
-      MetricName: "ConsumedWriteCapacityUnits"
-      ActionsEnabled: true
-      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:03ac2a89-c3e3-42c8-9389-1b14e941460a:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/fac35973-b33b-46d0-8216-8fd8262e485b."
-      AlarmName: "TargetTracking-table/Credits-AlarmHigh-8afc3d23-c3c7-4154-872c-f972c2f726ad"
-      Statistic: "Sum"
-      InsufficientDataActions: []
-      Tags: []
-      Threshold: 42
-  IAMManagedPolicy00policyConsumerLambdaPolicy006MyKk:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::IAM::ManagedPolicy"
-    DeletionPolicy: "Retain"
-    Properties:
-      ManagedPolicyName: "ConsumerLambdaPolicy"
-      Path: "/"
-      Description: ""
-      Groups: []
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-        - Resource: "arn:aws:sqs:eu-north-1:513585459204:MyQueue.fifo"
-          Action:
-          - "sqs:ReceiveMessage"
-          - "sqs:DeleteMessage"
-          - "sqs:GetQueueAttributes"
-          Effect: "Allow"
-      Roles:
-      - Ref: "IAMRole00CRUDOrdersrole1apevx1n00iQKgx"
-      Users: []
-  storageS3List:
-    Properties:
-      TemplateURL: "https://s3.amazonaws.com/amplify-latestfullstackadtv-dev-c3ff6-deployment/amplify-cfn-templates/storage/cloudformation-template.json"
-      Parameters:
-        s3PermissionsGuestPublic: "DISALLOW"
-        bucketName: "videolistbucket"
-        s3PublicPolicy: "Public_policy_c4c8f1d2"
-        AuthenticatedAllowList: "ALLOW"
-        unauthRoleName:
-          Ref: "UnauthRoleName"
-        s3PrivatePolicy: "Private_policy_c4c8f1d2"
-        selectedGuestPermissions: ""
-        s3PermissionsAuthenticatedPrivate: "s3:PutObject,s3:GetObject,s3:DeleteObject"
-        s3PermissionsAuthenticatedPublic: "s3:PutObject,s3:GetObject,s3:DeleteObject"
-        s3PermissionsAuthenticatedUploads: "s3:PutObject"
-        s3UploadsPolicy: "Uploads_policy_c4c8f1d2"
-        env: "dev"
-        unauthPolicyName: "s3_amplify_c4c8f1d2"
-        authRoleName:
-          Ref: "AuthRoleName"
-        GuestAllowList: "DISALLOW"
-        authPolicyName: "s3_amplify_c4c8f1d2"
-        s3ProtectedPolicy: "Protected_policy_c4c8f1d2"
-        s3PermissionsAuthenticatedProtected: "s3:PutObject,s3:GetObject,s3:DeleteObject"
-        s3PermissionsGuestUploads: "DISALLOW"
-        s3ReadPolicy: "read_policy_c4c8f1d2"
-        selectedAuthenticatedPermissions: "s3:PutObject,s3:GetObject,s3:ListBucket,s3:DeleteObject"
-    Type: "AWS::CloudFormation::Stack"
-  CloudWatchAlarm00TargetTrackingtabledevicesAlarmHigh52461fee2f9c46f28ae0f82de3fd2e4b003Ksd6:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::CloudWatch::Alarm"
-    DeletionPolicy: "Retain"
-    Properties:
-      ComparisonOperator: "GreaterThanThreshold"
-      Dimensions:
-      - Value:
-          Ref: "DynamoDBTable00devices00dtXNS"
-        Name: "TableName"
-      Period: 60
-      EvaluationPeriods: 2
-      Namespace: "AWS/DynamoDB"
-      OKActions: []
-      AlarmActions:
-      - "arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:a7abf140-bca6-411d-b679-8d624b486ce6:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/de66b0e6-ad16-4750-8e3b-0aa484fa56d2"
-      MetricName: "ConsumedWriteCapacityUnits"
-      ActionsEnabled: true
-      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:a7abf140-bca6-411d-b679-8d624b486ce6:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/de66b0e6-ad16-4750-8e3b-0aa484fa56d2."
-      AlarmName: "TargetTracking-table/devices-AlarmHigh-52461fee-2f9c-46f2-8ae0-f82de3fd2e4b"
-      Statistic: "Sum"
-      InsufficientDataActions: []
-      Tags: []
-      Threshold: 42
   APIGatewayAuthStack:
     Properties:
-      TemplateURL: "https://s3.amazonaws.com/amplify-latestfullstackadtv-dev-c3ff6-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
       Parameters:
-        authRoleName:
-          Ref: "AuthRoleName"
-        env: "dev"
-        unauthRoleName:
-          Ref: "UnauthRoleName"
         api212f2e80:
           Fn::GetAtt:
-          - "apiapi212f2e80"
-          - "Outputs.ApiId"
-    Type: "AWS::CloudFormation::Stack"
-  UpdateRolesWithIDPFunctionRole:
-    Properties:
-      RoleName:
-        Fn::Join:
-        - ""
-        - - Ref: "AuthRole"
-          - "-idp"
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-        - Effect: "Allow"
-          Principal:
-            Service:
-            - "lambda.amazonaws.com"
-          Action:
-          - "sts:AssumeRole"
-      Policies:
-      - PolicyDocument:
-          Version: "2012-10-17"
-          Statement:
-          - Resource: "arn:aws:logs:*:*:*"
-            Effect: "Allow"
-            Action:
-            - "logs:CreateLogGroup"
-            - "logs:CreateLogStream"
-            - "logs:PutLogEvents"
-          - Resource:
-              Fn::GetAtt:
-              - "AuthRole"
-              - "Arn"
-            Effect: "Allow"
-            Action:
-            - "iam:UpdateAssumeRolePolicy"
-            - "iam:GetRole"
-          - Resource:
-              Fn::GetAtt:
-              - "UnauthRole"
-              - "Arn"
-            Effect: "Allow"
-            Action:
-            - "iam:UpdateAssumeRolePolicy"
-            - "iam:GetRole"
-        PolicyName: "UpdateRolesWithIDPFunctionPolicy"
-    Type: "AWS::IAM::Role"
-  CloudWatchAlarm00TargetTrackingtableCreditsAlarmLow336ae7f43d314c689a219d57376e59bd00Jz4aI:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::CloudWatch::Alarm"
-    DeletionPolicy: "Retain"
-    Properties:
-      ComparisonOperator: "LessThanThreshold"
-      Dimensions:
-      - Value:
-          Ref: "DynamoDBTable00Credits00bmNwR"
-        Name: "TableName"
-      Period: 60
-      EvaluationPeriods: 15
-      Namespace: "AWS/DynamoDB"
-      OKActions: []
-      AlarmActions:
-      - "arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:f5e845d8-86eb-41aa-af80-726860c96f44:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/5faa38a3-acf1-49a6-bd5d-f10e51635fc7"
-      MetricName: "ConsumedReadCapacityUnits"
-      ActionsEnabled: true
-      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:f5e845d8-86eb-41aa-af80-726860c96f44:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/5faa38a3-acf1-49a6-bd5d-f10e51635fc7."
-      AlarmName: "TargetTracking-table/Credits-AlarmLow-336ae7f4-3d31-4c68-9a21-9d57376e59bd"
-      Statistic: "Sum"
-      InsufficientDataActions: []
-      Tags: []
-      Threshold: 30
-  LambdaEventSourceMapping002ed935a8ba174d0ca438394c091ff5c000loyJA:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::Lambda::EventSourceMapping"
-    DeletionPolicy: "Retain"
-    Properties:
-      BatchSize: 10
-      FunctionName:
-        Fn::GetAtt:
-        - "LambdaFunction00CRUDOrders00fVTT5"
-        - "Arn"
-      Enabled: true
-      EventSourceArn:
-        Fn::GetAtt:
-        - "SQSQueue00MyQueuefifo00V0baV"
-        - "Arn"
-      MaximumBatchingWindowInSeconds: 0
-  CloudWatchAlarm00TargetTrackingtableCreditsProvisionedCapacityLow119c7a3200b740fd9982ab5a18cdadca000aT84:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::CloudWatch::Alarm"
-    DeletionPolicy: "Retain"
-    Properties:
-      ComparisonOperator: "LessThanThreshold"
-      Dimensions:
-      - Value:
-          Ref: "DynamoDBTable00Credits00bmNwR"
-        Name: "TableName"
-      Period: 300
-      EvaluationPeriods: 3
-      Namespace: "AWS/DynamoDB"
-      OKActions: []
-      AlarmActions:
-      - "arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:03ac2a89-c3e3-42c8-9389-1b14e941460a:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/fac35973-b33b-46d0-8216-8fd8262e485b"
-      MetricName: "ProvisionedWriteCapacityUnits"
-      ActionsEnabled: true
-      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:03ac2a89-c3e3-42c8-9389-1b14e941460a:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/fac35973-b33b-46d0-8216-8fd8262e485b."
-      AlarmName: "TargetTracking-table/Credits-ProvisionedCapacityLow-119c7a32-00b7-40fd-9982-ab5a18cdadca"
-      Statistic: "Average"
-      InsufficientDataActions: []
-      Tags: []
-      Threshold: 1
-  CloudWatchAlarm00TargetTrackingtabledevicesProvisionedCapacityHighfdbf771f282643b0bbd416b93e2b19e200oss8a:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::CloudWatch::Alarm"
-    DeletionPolicy: "Retain"
-    Properties:
-      ComparisonOperator: "GreaterThanThreshold"
-      Dimensions:
-      - Value:
-          Ref: "DynamoDBTable00devices00dtXNS"
-        Name: "TableName"
-      Period: 300
-      EvaluationPeriods: 3
-      Namespace: "AWS/DynamoDB"
-      OKActions: []
-      AlarmActions:
-      - "arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:a7abf140-bca6-411d-b679-8d624b486ce6:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/de66b0e6-ad16-4750-8e3b-0aa484fa56d2"
-      MetricName: "ProvisionedWriteCapacityUnits"
-      ActionsEnabled: true
-      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:a7abf140-bca6-411d-b679-8d624b486ce6:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/de66b0e6-ad16-4750-8e3b-0aa484fa56d2."
-      AlarmName: "TargetTracking-table/devices-ProvisionedCapacityHigh-fdbf771f-2826-43b0-bbd4-16b93e2b19e2"
-      Statistic: "Average"
-      InsufficientDataActions: []
-      Tags: []
-      Threshold: 1
-  LambdaPermission00functionCRUDOrders00bu9OA:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::Lambda::Permission"
-    DeletionPolicy: "Retain"
-    Properties:
-      FunctionName:
-        Fn::GetAtt:
-        - "LambdaFunction00CRUDOrders00fVTT5"
-        - "Arn"
-      Action: "lambda:InvokeFunction"
-      SourceArn: "arn:aws:execute-api:eu-north-1:513585459204:l0gmn7llz8/*/*/CRUDOrders"
-      Principal: "apigateway.amazonaws.com"
-  CloudWatchAlarm00TargetTrackingtabledevicesProvisionedCapacityHighd37808b90d584b1193e24e3e567400d000R4xvm:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::CloudWatch::Alarm"
-    DeletionPolicy: "Retain"
-    Properties:
-      ComparisonOperator: "GreaterThanThreshold"
-      Dimensions:
-      - Value:
-          Ref: "DynamoDBTable00devices00dtXNS"
-        Name: "TableName"
-      Period: 300
-      EvaluationPeriods: 3
-      Namespace: "AWS/DynamoDB"
-      OKActions: []
-      AlarmActions:
-      - "arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:74cbaa66-3554-4c48-bed4-b08330e4ed77:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/77f8498d-a54d-46f3-b561-770147f050c5"
-      MetricName: "ProvisionedReadCapacityUnits"
-      ActionsEnabled: true
-      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:74cbaa66-3554-4c48-bed4-b08330e4ed77:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/77f8498d-a54d-46f3-b561-770147f050c5."
-      AlarmName: "TargetTracking-table/devices-ProvisionedCapacityHigh-d37808b9-0d58-4b11-93e2-4e3e567400d0"
-      Statistic: "Average"
-      InsufficientDataActions: []
-      Tags: []
-      Threshold: 1
-  SQSQueue00MyDLQfifo001uhg4:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::SQS::Queue"
-    DeletionPolicy: "Retain"
-    Properties:
-      ReceiveMessageWaitTimeSeconds: 0
-      SqsManagedSseEnabled: true
-      FifoThroughputLimit: "perMessageGroupId"
-      DelaySeconds: 0
-      FifoQueue: true
-      MessageRetentionPeriod: 345600
-      MaximumMessageSize: 262144
-      DeduplicationScope: "messageGroup"
-      VisibilityTimeout: 30
-      ContentBasedDeduplication: false
-      QueueName: "MyDLQ.fifo"
-  functionlatestfullstackadtv72f7ac0e:
-    Properties:
-      TemplateURL: "https://s3.amazonaws.com/amplify-latestfullstackadtv-dev-c3ff6-deployment/amplify-cfn-templates/function/latestfullstackadtv72f7ac0e-cloudformation-template.json"
-      Parameters:
-        env: "dev"
-        deploymentBucketName: "amplify-latestfullstackadtv-dev-c3ff6-deployment"
-        s3Key: "amplify-builds/latestfullstackadtv72f7ac0e-58623244675536475473-build.zip"
-    Type: "AWS::CloudFormation::Stack"
-  CloudWatchAlarm00TargetTrackingtableCreditsAlarmHigh1a3cf94927794ac9aca2eeef6cb0a91100se3nc:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::CloudWatch::Alarm"
-    DeletionPolicy: "Retain"
-    Properties:
-      ComparisonOperator: "GreaterThanThreshold"
-      Dimensions:
-      - Value:
-          Ref: "DynamoDBTable00Credits00bmNwR"
-        Name: "TableName"
-      Period: 60
-      EvaluationPeriods: 2
-      Namespace: "AWS/DynamoDB"
-      OKActions: []
-      AlarmActions:
-      - "arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:f5e845d8-86eb-41aa-af80-726860c96f44:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/5faa38a3-acf1-49a6-bd5d-f10e51635fc7"
-      MetricName: "ConsumedReadCapacityUnits"
-      ActionsEnabled: true
-      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:f5e845d8-86eb-41aa-af80-726860c96f44:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/5faa38a3-acf1-49a6-bd5d-f10e51635fc7."
-      AlarmName: "TargetTracking-table/Credits-AlarmHigh-1a3cf949-2779-4ac9-aca2-eeef6cb0a911"
-      Statistic: "Sum"
-      InsufficientDataActions: []
-      Tags: []
-      Threshold: 42
-  IAMManagedPolicy00policyDevicesTablePolicy00TK1BK:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::IAM::ManagedPolicy"
-    DeletionPolicy: "Retain"
-    Properties:
-      ManagedPolicyName: "DevicesTablePolicy"
-      Path: "/"
-      Description: ""
-      Groups: []
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-        - Resource: "arn:aws:dynamodb:eu-north-1:513585459204:table/devices"
-          Action:
-          - "dynamodb:GetItem"
-          - "dynamodb:PutItem"
-          - "dynamodb:UpdateItem"
-          - "dynamodb:DeleteItem"
-          - "dynamodb:Scan"
-          - "dynamodb:Query"
-          Effect: "Allow"
-      Roles:
-      - Ref: "IAMRole00DevicesTableRole000pZB6"
-      - Ref: "IAMRole00CRUDOrdersrole1apevx1n00iQKgx"
-      Users: []
-  authlatestfullstackadtv242ef069:
-    Properties:
-      TemplateURL: "https://s3.amazonaws.com/amplify-latestfullstackadtv-dev-c3ff6-deployment/amplify-cfn-templates/auth/latestfullstackadtv242ef069-cloudformation-template.json"
-      Parameters:
-        authRoleArn:
-          Fn::GetAtt:
-          - "AuthRole"
-          - "Arn"
-        autoVerifiedAttributes: "email"
-        allowUnauthenticatedIdentities: false
-        smsVerificationMessage: "Your verification code is {####}"
-        userpoolClientReadAttributes: "email"
-        breakCircularDependency: true
-        mfaTypes: "SMS Text Message"
-        emailVerificationSubject: "Your verification code"
-        sharedId: "242ef069"
-        useDefault: "default"
-        userpoolClientGenerateSecret: false
-        mfaConfiguration: "OFF"
-        identityPoolName: "latestfullstackadtv242ef069_identitypool_242ef069"
-        userPoolGroupList: ""
-        authSelections: "identityPoolAndUserPool"
-        resourceNameTruncated: "latest242ef069"
-        smsAuthenticationMessage: "Your authentication code is {####}"
-        passwordPolicyMinLength: 8
-        userPoolName: "latestfullstackadtv242ef069_userpool_242ef069"
-        userpoolClientWriteAttributes: "email"
-        dependsOn: ""
-        useEnabledMfas: true
-        usernameCaseSensitive: false
-        resourceName: "latestfullstackadtv242ef069"
-        serviceName: "Cognito"
-        env: "dev"
-        emailVerificationMessage: "Your verification code is {####}"
-        userpoolClientRefreshTokenValidity: 30
-        userpoolClientSetAttributes: false
-        unauthRoleArn:
-          Fn::GetAtt:
-          - "UnauthRole"
-          - "Arn"
-        requiredAttributes: "email"
-        passwordPolicyCharacters: ""
-        aliasAttributes: ""
-        userpoolClientLambdaRole: "latest242ef069_userpoolclient_lambda_role"
-        defaultPasswordPolicy: false
-    Type: "AWS::CloudFormation::Stack"
-  LambdaFunction00CRUDOrders00fVTT5:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::Lambda::Function"
-    DeletionPolicy: "Retain"
-    Properties:
-      MemorySize: 512
-      Description: "A simple backend (read/write to DynamoDB) with a RESTful API endpoint\
-        \ using Amazon API Gateway."
-      TracingConfig:
-        Mode: "PassThrough"
-      Timeout: 10
-      RuntimeManagementConfig:
-        UpdateRuntimeOn: "Auto"
-      Handler: "lambda_function.lambda_handler"
-      Code:
-        S3Bucket:
-          Ref: "LambdaFunction00CRUDOrders00fVTT5CodeS3BucketOneOfaTB6t"
-        S3Key:
-          Ref: "LambdaFunction00CRUDOrders00fVTT5CodeS3KeyOneOfankkE"
-      Role:
-        Fn::GetAtt:
-        - "IAMRole00CRUDOrdersrole1apevx1n00iQKgx"
-        - "Arn"
-      FileSystemConfigs: []
-      FunctionName: "CRUDOrders"
-      Runtime: "python3.10"
-      PackageType: "Zip"
-      LoggingConfig:
-        LogFormat: "Text"
-        LogGroup: "/aws/lambda/CRUDOrders"
-      EphemeralStorage:
-        Size: 512
-      Tags:
-      - Value: "microservice-http-endpoint-python"
-        Key: "lambda-console:blueprint"
-      Architectures:
-      - "x86_64"
-  DynamoDBTable00Credits00bmNwR:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::DynamoDB::Table"
-    DeletionPolicy: "Retain"
-    Properties:
-      SSESpecification:
-        SSEEnabled: false
-      TableName: "Credits"
-      AttributeDefinitions:
-      - AttributeType: "S"
-        AttributeName: "Owner_id"
-      ContributorInsightsSpecification:
-        Enabled: false
-      BillingMode: "PROVISIONED"
-      PointInTimeRecoverySpecification:
-        PointInTimeRecoveryEnabled: false
-      ProvisionedThroughput:
-        WriteCapacityUnits: 1
-        ReadCapacityUnits: 1
-      KeySchema:
-      - KeyType: "HASH"
-        AttributeName: "Owner_id"
-      DeletionProtectionEnabled: false
-      TableClass: "STANDARD"
-      Tags: []
-      TimeToLiveSpecification:
-        Enabled: false
-  IAMRole00CreditsCrudLambdaRole00SXxLc:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::IAM::Role"
-    DeletionPolicy: "Retain"
-    Properties:
-      Path: "/"
-      ManagedPolicyArns:
-      - "arn:aws:iam::513585459204:policy/CreditsPolicy"
-      - "arn:aws:iam::513585459204:policy/CallbackEnquePolicy"
-      - "arn:aws:iam::513585459204:policy/ConsumerCreditsLambdaPolicy"
-      MaxSessionDuration: 3600
-      RoleName: "CreditsCrudLambdaRole"
-      Description: "Allows Lambda functions to call AWS services on your behalf."
-      Policies:
-      - PolicyDocument:
-          Version: "2012-10-17"
-          Statement:
-          - Resource: "arn:aws:logs:eu-north-1:513585459204:*"
-            Action: "logs:CreateLogGroup"
-            Effect: "Allow"
-          - Resource:
-            - "arn:aws:logs:eu-north-1:513585459204:log-group:/aws/lambda/CRUDWallet:*"
-            Action:
-            - "logs:CreateLogStream"
-            - "logs:PutLogEvents"
-            Effect: "Allow"
-        PolicyName: "Monitoring"
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-        - Action: "sts:AssumeRole"
-          Effect: "Allow"
-          Principal:
-            Service: "lambda.amazonaws.com"
-  CloudWatchAlarm00TargetTrackingtabledevicesAlarmLow6ee95699c7504ebda3a875b7fcd0083300bZC1w:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::CloudWatch::Alarm"
-    DeletionPolicy: "Retain"
-    Properties:
-      ComparisonOperator: "LessThanThreshold"
-      Dimensions:
-      - Value:
-          Ref: "DynamoDBTable00devices00dtXNS"
-        Name: "TableName"
-      Period: 60
-      EvaluationPeriods: 15
-      Namespace: "AWS/DynamoDB"
-      OKActions: []
-      AlarmActions:
-      - "arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:a7abf140-bca6-411d-b679-8d624b486ce6:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/de66b0e6-ad16-4750-8e3b-0aa484fa56d2"
-      MetricName: "ConsumedWriteCapacityUnits"
-      ActionsEnabled: true
-      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:a7abf140-bca6-411d-b679-8d624b486ce6:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/de66b0e6-ad16-4750-8e3b-0aa484fa56d2."
-      AlarmName: "TargetTracking-table/devices-AlarmLow-6ee95699-c750-4ebd-a3a8-75b7fcd00833"
-      Statistic: "Sum"
-      InsufficientDataActions: []
-      Tags: []
-      Threshold: 30
-  IAMManagedPolicy00policyCreditsPolicy00fuUL8:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::IAM::ManagedPolicy"
-    DeletionPolicy: "Retain"
-    Properties:
-      ManagedPolicyName: "CreditsPolicy"
-      Path: "/"
-      Description: ""
-      Groups: []
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-        - Resource: "arn:aws:dynamodb:eu-north-1:513585459204:table/Credits"
-          Action:
-          - "dynamodb:GetItem"
-          - "dynamodb:PutItem"
-          - "dynamodb:UpdateItem"
-          - "dynamodb:DeleteItem"
-          - "dynamodb:Scan"
-          - "dynamodb:Query"
-          Effect: "Allow"
-      Roles:
-      - Ref: "IAMRole00CreditsCrudLambdaRole00SXxLc"
-      Users: []
-  CloudWatchAlarm00TargetTrackingtableCreditsProvisionedCapacityHighff46f8794fc04c6e959a6b59796848970099TCP:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::CloudWatch::Alarm"
-    DeletionPolicy: "Retain"
-    Properties:
-      ComparisonOperator: "GreaterThanThreshold"
-      Dimensions:
-      - Value:
-          Ref: "DynamoDBTable00Credits00bmNwR"
-        Name: "TableName"
-      Period: 300
-      EvaluationPeriods: 3
-      Namespace: "AWS/DynamoDB"
-      OKActions: []
-      AlarmActions:
-      - "arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:f5e845d8-86eb-41aa-af80-726860c96f44:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/5faa38a3-acf1-49a6-bd5d-f10e51635fc7"
-      MetricName: "ProvisionedReadCapacityUnits"
-      ActionsEnabled: true
-      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:f5e845d8-86eb-41aa-af80-726860c96f44:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/5faa38a3-acf1-49a6-bd5d-f10e51635fc7."
-      AlarmName: "TargetTracking-table/Credits-ProvisionedCapacityHigh-ff46f879-4fc0-4c6e-959a-6b5979684897"
-      Statistic: "Average"
-      InsufficientDataActions: []
-      Tags: []
-      Threshold: 1
-  IAMManagedPolicy00policyConsumerCreditsLambdaPolicy00D6C3Y:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::IAM::ManagedPolicy"
-    DeletionPolicy: "Retain"
-    Properties:
-      ManagedPolicyName: "ConsumerCreditsLambdaPolicy"
-      Path: "/"
-      Description: ""
-      Groups: []
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-        - Resource: "arn:aws:sqs:eu-north-1:513585459204:CreditsQueue.fifo"
-          Action:
-          - "sqs:ReceiveMessage"
-          - "sqs:DeleteMessage"
-          - "sqs:GetQueueAttributes"
-          Effect: "Allow"
-      Roles:
-      - Ref: "IAMRole00CreditsCrudLambdaRole00SXxLc"
-      Users: []
-  LambdaFunction00CallbackLambda009zd6u:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::Lambda::Function"
-    DeletionPolicy: "Retain"
-    Properties:
-      MemorySize: 128
-      Description: ""
-      TracingConfig:
-        Mode: "PassThrough"
-      Timeout: 3
-      RuntimeManagementConfig:
-        UpdateRuntimeOn: "Auto"
-      Handler: "lambda_function.lambda_handler"
-      Code:
-        S3Bucket:
-          Ref: "LambdaFunction00CallbackLambda009zd6uCodeS3BucketOneOfGk0SN"
-        S3Key:
-          Ref: "LambdaFunction00CallbackLambda009zd6uCodeS3KeyOneOfC7FRg"
-      Role:
-        Fn::GetAtt:
-        - "IAMRole00CallbackLambdaroleazy4exej00hl6bx"
-        - "Arn"
-      FileSystemConfigs: []
-      FunctionName: "CallbackLambda"
-      Runtime: "python3.12"
-      PackageType: "Zip"
-      LoggingConfig:
-        LogFormat: "Text"
-        LogGroup: "/aws/lambda/CallbackLambda"
-      EphemeralStorage:
-        Size: 512
-      Architectures:
-      - "x86_64"
-  IAMManagedPolicy00policyMonitoringCallback00h5VS4:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::IAM::ManagedPolicy"
-    DeletionPolicy: "Retain"
-    Properties:
-      ManagedPolicyName: "MonitoringCallback"
-      Path: "/"
-      Description: ""
-      Groups: []
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-        - Resource: "arn:aws:logs:eu-north-1:513585459204:*"
-          Action: "logs:CreateLogGroup"
-          Effect: "Allow"
-        - Resource:
-          - "arn:aws:lambda:eu-north-1:513585459204:function:CallbackLambda:*"
-          Action:
-          - "logs:CreateLogStream"
-          - "logs:PutLogEvents"
-          Effect: "Allow"
-      Roles:
-      - Ref: "IAMRole00CallbackLambdaroleazy4exej00hl6bx"
-      Users: []
-  SQSQueue00MyQueuefifo00V0baV:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::SQS::Queue"
-    DeletionPolicy: "Retain"
-    Properties:
-      ReceiveMessageWaitTimeSeconds: 0
-      SqsManagedSseEnabled: true
-      FifoThroughputLimit: "perMessageGroupId"
-      DelaySeconds: 0
-      RedrivePolicy:
-        deadLetterTargetArn: "arn:aws:sqs:eu-north-1:513585459204:MyDLQ.fifo"
-        maxReceiveCount: 10
-      FifoQueue: true
-      MessageRetentionPeriod: 345600
-      MaximumMessageSize: 262144
-      DeduplicationScope: "messageGroup"
-      VisibilityTimeout: 30
-      ContentBasedDeduplication: true
-      QueueName: "MyQueue.fifo"
-  IAMManagedPolicy00policyserviceroleAWSLambdaBasicExecutionRole041df3f8e82f43dfa37bd3724fe8103600BThzy:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::IAM::ManagedPolicy"
-    DeletionPolicy: "Retain"
-    Properties:
-      ManagedPolicyName: "AWSLambdaBasicExecutionRole-041df3f8-e82f-43df-a37b-d3724fe81036"
-      Path: "/service-role/"
-      Description: ""
-      Groups: []
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-        - Resource: "arn:aws:logs:eu-north-1:513585459204:*"
-          Action: "logs:CreateLogGroup"
-          Effect: "Allow"
-        - Resource:
-          - "arn:aws:logs:eu-north-1:513585459204:log-group:/aws/lambda/CallbackLambda:*"
-          Action:
-          - "logs:CreateLogStream"
-          - "logs:PutLogEvents"
-          Effect: "Allow"
-      Roles:
-      - Ref: "IAMRole00CallbackLambdaroleazy4exej00hl6bx"
-      Users: []
-  IAMRole00DevicesTableRole000pZB6:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::IAM::Role"
-    DeletionPolicy: "Retain"
-    Properties:
-      Path: "/"
-      ManagedPolicyArns:
-      - "arn:aws:iam::513585459204:policy/DevicesTablePolicy"
-      MaxSessionDuration: 3600
-      RoleName: "DevicesTableRole"
-      Description: "Allows Lambda functions to call AWS services on your behalf."
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-        - Action: "sts:AssumeRole"
-          Effect: "Allow"
-          Principal:
-            Service: "lambda.amazonaws.com"
-  SQSQueue00CreditsQueuefifo00zm4VR:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::SQS::Queue"
-    DeletionPolicy: "Retain"
-    Properties:
-      ReceiveMessageWaitTimeSeconds: 0
-      SqsManagedSseEnabled: true
-      FifoThroughputLimit: "perMessageGroupId"
-      DelaySeconds: 0
-      RedrivePolicy:
-        deadLetterTargetArn: "arn:aws:sqs:eu-north-1:513585459204:DLQCreditsQueue.fifo"
-        maxReceiveCount: 10
-      FifoQueue: true
-      MessageRetentionPeriod: 345600
-      MaximumMessageSize: 262144
-      DeduplicationScope: "messageGroup"
-      VisibilityTimeout: 30
-      ContentBasedDeduplication: true
-      QueueName: "CreditsQueue.fifo"
-  IAMManagedPolicy00policyserviceroleAWSLambdaBasicExecutionRole9c75451ea5dc48bdbf31e1302538a13800nEnHq:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::IAM::ManagedPolicy"
-    DeletionPolicy: "Retain"
-    Properties:
-      ManagedPolicyName: "AWSLambdaBasicExecutionRole-9c75451e-a5dc-48bd-bf31-e1302538a138"
-      Path: "/service-role/"
-      Description: ""
-      Groups: []
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-        - Resource: "arn:aws:logs:eu-north-1:513585459204:*"
-          Action: "logs:CreateLogGroup"
-          Effect: "Allow"
-        - Resource:
-          - "arn:aws:logs:eu-north-1:513585459204:log-group:/aws/lambda/CRUDOrders:*"
-          Action:
-          - "logs:CreateLogStream"
-          - "logs:PutLogEvents"
-          Effect: "Allow"
-      Roles:
-      - Ref: "IAMRole00CRUDOrdersrole1apevx1n00iQKgx"
-      Users: []
-  LambdaFunction00CRUDWallet00ycdDZ:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::Lambda::Function"
-    DeletionPolicy: "Retain"
-    Properties:
-      MemorySize: 128
-      Description: ""
-      TracingConfig:
-        Mode: "PassThrough"
-      Timeout: 3
-      RuntimeManagementConfig:
-        UpdateRuntimeOn: "Auto"
-      Handler: "lambda_function.lambda_handler"
-      Code:
-        S3Bucket:
-          Ref: "LambdaFunction00CRUDWallet00ycdDZCodeS3BucketOneOfC4Y57"
-        S3Key:
-          Ref: "LambdaFunction00CRUDWallet00ycdDZCodeS3KeyOneOfyAKU2"
-      Role:
-        Fn::GetAtt:
-        - "IAMRole00CreditsCrudLambdaRole00SXxLc"
-        - "Arn"
-      FileSystemConfigs: []
-      FunctionName: "CRUDWallet"
-      Runtime: "python3.12"
-      PackageType: "Zip"
-      LoggingConfig:
-        LogFormat: "Text"
-        LogGroup: "/aws/lambda/CRUDWallet"
-      EphemeralStorage:
-        Size: 512
-      Architectures:
-      - "x86_64"
-  DynamoDBTable00devices00dtXNS:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::DynamoDB::Table"
-    DeletionPolicy: "Retain"
-    Properties:
-      SSESpecification:
-        SSEEnabled: false
-      TableName: "devices"
-      AttributeDefinitions:
-      - AttributeType: "S"
-        AttributeName: "ID"
-      ContributorInsightsSpecification:
-        Enabled: false
-      BillingMode: "PROVISIONED"
-      PointInTimeRecoverySpecification:
-        PointInTimeRecoveryEnabled: true
-      ProvisionedThroughput:
-        WriteCapacityUnits: 1
-        ReadCapacityUnits: 1
-      KeySchema:
-      - KeyType: "HASH"
-        AttributeName: "ID"
-      DeletionProtectionEnabled: false
-      TableClass: "STANDARD"
-      Tags: []
-      TimeToLiveSpecification:
-        Enabled: false
-  SQSQueue00CallBackQueue00s704w:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::SQS::Queue"
-    DeletionPolicy: "Retain"
-    Properties:
-      SqsManagedSseEnabled: true
-      ReceiveMessageWaitTimeSeconds: 0
-      DelaySeconds: 0
-      MessageRetentionPeriod: 345600
-      MaximumMessageSize: 262144
-      VisibilityTimeout: 30
-      QueueName: "CallBackQueue"
-  UnauthRole:
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-        - Effect: "Deny"
-          Action: "sts:AssumeRoleWithWebIdentity"
-          Principal:
-            Federated: "cognito-identity.amazonaws.com"
-          Sid: ""
-      RoleName:
-        Ref: "UnauthRoleName"
-    Type: "AWS::IAM::Role"
-  LambdaPermission00functionCRUDWallet00WuEoz:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::Lambda::Permission"
-    DeletionPolicy: "Retain"
-    Properties:
-      FunctionName:
-        Fn::GetAtt:
-        - "LambdaFunction00CRUDWallet00ycdDZ"
-        - "Arn"
-      Action: "lambda:InvokeFunction"
-      SourceArn: "arn:aws:execute-api:eu-north-1:513585459204:l0gmn7llz8/*/*/CRUDWallet"
-      Principal: "apigateway.amazonaws.com"
-  CloudWatchAlarm00TargetTrackingtabledevicesProvisionedCapacityLowdb8bd3928b964eb2833648cc860de7f300rQfm2:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::CloudWatch::Alarm"
-    DeletionPolicy: "Retain"
-    Properties:
-      ComparisonOperator: "LessThanThreshold"
-      Dimensions:
-      - Value:
-          Ref: "DynamoDBTable00devices00dtXNS"
-        Name: "TableName"
-      Period: 300
-      EvaluationPeriods: 3
-      Namespace: "AWS/DynamoDB"
-      OKActions: []
-      AlarmActions:
-      - "arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:a7abf140-bca6-411d-b679-8d624b486ce6:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/de66b0e6-ad16-4750-8e3b-0aa484fa56d2"
-      MetricName: "ProvisionedWriteCapacityUnits"
-      ActionsEnabled: true
-      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:a7abf140-bca6-411d-b679-8d624b486ce6:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/de66b0e6-ad16-4750-8e3b-0aa484fa56d2."
-      AlarmName: "TargetTracking-table/devices-ProvisionedCapacityLow-db8bd392-8b96-4eb2-8336-48cc860de7f3"
-      Statistic: "Average"
-      InsufficientDataActions: []
-      Tags: []
-      Threshold: 1
-  UpdateRolesWithIDPFunction:
-    Properties:
-      Role:
-        Fn::GetAtt:
-        - "UpdateRolesWithIDPFunctionRole"
-        - "Arn"
-      Handler: "index.handler"
-      Runtime: "nodejs18.x"
-      Code:
-        ZipFile:
-          Fn::Join:
-          - "\n"
-          - - "const response = require('cfn-response');"
-            - "const { IAMClient, GetRoleCommand, UpdateAssumeRolePolicyCommand }\
-              \ = require('@aws-sdk/client-iam');"
-            - "exports.handler = function(event, context) {"
-            - "    // Don't return promise, response.send() marks context as done\
-              \ internally"
-            - "    const ignoredPromise = handleEvent(event, context)"
-            - "};"
-            - "async function handleEvent(event, context) {"
-            - "    try {"
-            - "        let authRoleName = event.ResourceProperties.authRoleName;"
-            - "        let unauthRoleName = event.ResourceProperties.unauthRoleName;"
-            - "        let idpId = event.ResourceProperties.idpId;"
-            - "        let authParamsJson = {"
-            - "            'Version': '2012-10-17',"
-            - "            'Statement': [{"
-            - "                'Effect': 'Allow',"
-            - "                'Principal': {'Federated': 'cognito-identity.amazonaws.com'},"
-            - "                'Action': 'sts:AssumeRoleWithWebIdentity',"
-            - "                'Condition': {"
-            - "                    'StringEquals': {'cognito-identity.amazonaws.com:aud':\
-              \ idpId},"
-            - "                    'ForAnyValue:StringLike': {'cognito-identity.amazonaws.com:amr':\
-              \ 'authenticated'}"
-            - "                }"
-            - "            }]"
-            - "        };"
-            - "        let unauthParamsJson = {"
-            - "            'Version': '2012-10-17',"
-            - "            'Statement': [{"
-            - "                'Effect': 'Allow',"
-            - "                'Principal': {'Federated': 'cognito-identity.amazonaws.com'},"
-            - "                'Action': 'sts:AssumeRoleWithWebIdentity',"
-            - "                'Condition': {"
-            - "                    'StringEquals': {'cognito-identity.amazonaws.com:aud':\
-              \ idpId},"
-            - "                    'ForAnyValue:StringLike': {'cognito-identity.amazonaws.com:amr':\
-              \ 'unauthenticated'}"
-            - "                }"
-            - "            }]"
-            - "        };"
-            - "        if (event.RequestType === 'Delete') {"
-            - "            try {"
-            - "                delete authParamsJson.Statement[0].Condition;"
-            - "                delete unauthParamsJson.Statement[0].Condition;"
-            - "                authParamsJson.Statement[0].Effect = 'Deny'"
-            - "                unauthParamsJson.Statement[0].Effect = 'Deny'"
-            - "                let authParams = {PolicyDocument: JSON.stringify(authParamsJson),\
-              \ RoleName: authRoleName};"
-            - "                let unauthParams = {PolicyDocument: JSON.stringify(unauthParamsJson),\
-              \ RoleName: unauthRoleName};"
-            - "                const iam = new IAMClient({region: event.ResourceProperties.region});"
-            - "                let res = await Promise.all(["
-            - "                    iam.send(new GetRoleCommand({RoleName: authParams.RoleName})),"
-            - "                    iam.send(new GetRoleCommand({RoleName: unauthParams.RoleName}))"
-            - "                ]);"
-            - "                res = await Promise.all(["
-            - "                    iam.send(new UpdateAssumeRolePolicyCommand(authParams)),"
-            - "                    iam.send(new UpdateAssumeRolePolicyCommand(unauthParams))"
-            - "                ]);"
-            - "                response.send(event, context, response.SUCCESS, {});"
-            - "            } catch (err) {"
-            - "                console.log(err.stack);"
-            - "                response.send(event, context, response.SUCCESS, {Error:\
-              \ err});"
-            - "            }"
-            - "        } else if (event.RequestType === 'Update' || event.RequestType\
-              \ === 'Create') {"
-            - "            const iam = new IAMClient({region: event.ResourceProperties.region});"
-            - "            let authParams = {PolicyDocument: JSON.stringify(authParamsJson),\
-              \ RoleName: authRoleName};"
-            - "            let unauthParams = {PolicyDocument: JSON.stringify(unauthParamsJson),\
-              \ RoleName: unauthRoleName};"
-            - "            const res = await Promise.all(["
-            - "                iam.send(new UpdateAssumeRolePolicyCommand(authParams)),"
-            - "                iam.send(new UpdateAssumeRolePolicyCommand(unauthParams))"
-            - "            ]);"
-            - "            response.send(event, context, response.SUCCESS, {});"
-            - "        }"
-            - "    } catch (err) {"
-            - "        console.log(err.stack);"
-            - "        response.send(event, context, response.FAILED, {Error: err});"
-            - "    }"
-            - "};"
-      Timeout: 300
-    DependsOn:
-    - "AuthRole"
-    - "UnauthRole"
-    - "authlatestfullstackadtv242ef069"
-    Type: "AWS::Lambda::Function"
-  LambdaEventSourceMapping00aace62870a204edd9a2b0f3b4472b38d00JkFya:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::Lambda::EventSourceMapping"
-    DeletionPolicy: "Retain"
-    Properties:
-      BatchSize: 10
-      FunctionName:
-        Fn::GetAtt:
-        - "LambdaFunction00CallbackLambda009zd6u"
-        - "Arn"
-      Enabled: true
-      EventSourceArn:
-        Fn::GetAtt:
-        - "SQSQueue00CallBackQueue00s704w"
-        - "Arn"
-      MaximumBatchingWindowInSeconds: 0
-  UpdateRolesWithIDPFunctionOutputs:
-    Properties:
-      ServiceToken:
-        Fn::GetAtt:
-        - "UpdateRolesWithIDPFunction"
-        - "Arn"
-      region:
-        Ref: "AWS::Region"
-      authRoleName:
-        Ref: "AuthRole"
-      unauthRoleName:
-        Ref: "UnauthRole"
-      idpId:
-        Fn::GetAtt:
-        - "authlatestfullstackadtv242ef069"
-        - "Outputs.IdentityPoolId"
-    Type: "Custom::LambdaCallout"
+          - apiapi212f2e80
+          - Outputs.ApiId
+        authRoleName:
+          Ref: AuthRoleName
+        env: dev
+        unauthRoleName:
+          Ref: UnauthRoleName
+      TemplateURL: https://s3.amazonaws.com/amplify-latestfullstackadtv-dev-c3ff6-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json
+    Type: AWS::CloudFormation::Stack
   AuthRole:
     Properties:
       AssumeRolePolicyDocument:
-        Version: "2012-10-17"
         Statement:
-        - Effect: "Deny"
-          Action: "sts:AssumeRoleWithWebIdentity"
+        - Action: sts:AssumeRoleWithWebIdentity
+          Effect: Deny
           Principal:
-            Federated: "cognito-identity.amazonaws.com"
-          Sid: ""
+            Federated: cognito-identity.amazonaws.com
+          Sid: ''
+        Version: '2012-10-17'
       RoleName:
-        Ref: "AuthRoleName"
-    Type: "AWS::IAM::Role"
-  CloudWatchAlarm00TargetTrackingtabledevicesProvisionedCapacityLow95f5cc90086d45feae28e878539ad81800DzcsR:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::CloudWatch::Alarm"
-    DeletionPolicy: "Retain"
+        Ref: AuthRoleName
+    Type: AWS::IAM::Role
+  CloudWatchAlarm00TargetTrackingtableCreditsAlarmHigh1a3cf94927794ac9aca2eeef6cb0a91100se3nc:
+    DeletionPolicy: Retain
     Properties:
-      ComparisonOperator: "LessThanThreshold"
-      Dimensions:
-      - Value:
-          Ref: "DynamoDBTable00devices00dtXNS"
-        Name: "TableName"
-      Period: 300
-      EvaluationPeriods: 3
-      Namespace: "AWS/DynamoDB"
-      OKActions: []
-      AlarmActions:
-      - "arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:74cbaa66-3554-4c48-bed4-b08330e4ed77:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/77f8498d-a54d-46f3-b561-770147f050c5"
-      MetricName: "ProvisionedReadCapacityUnits"
       ActionsEnabled: true
-      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:74cbaa66-3554-4c48-bed4-b08330e4ed77:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/77f8498d-a54d-46f3-b561-770147f050c5."
-      AlarmName: "TargetTracking-table/devices-ProvisionedCapacityLow-95f5cc90-086d-45fe-ae28-e878539ad818"
-      Statistic: "Average"
-      InsufficientDataActions: []
-      Tags: []
-      Threshold: 1
-  CloudWatchAlarm00TargetTrackingtableCreditsAlarmLow647fd4bcf74a434b829e480e8e10fa49009l9SV:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::CloudWatch::Alarm"
-    DeletionPolicy: "Retain"
-    Properties:
-      ComparisonOperator: "LessThanThreshold"
+      AlarmActions:
+      - arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:f5e845d8-86eb-41aa-af80-726860c96f44:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/5faa38a3-acf1-49a6-bd5d-f10e51635fc7
+      AlarmDescription: DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:f5e845d8-86eb-41aa-af80-726860c96f44:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/5faa38a3-acf1-49a6-bd5d-f10e51635fc7.
+      AlarmName: TargetTracking-table/Credits-AlarmHigh-1a3cf949-2779-4ac9-aca2-eeef6cb0a911
+      ComparisonOperator: GreaterThanThreshold
       Dimensions:
-      - Value:
-          Ref: "DynamoDBTable00Credits00bmNwR"
-        Name: "TableName"
+      - Name: TableName
+        Value:
+          Ref: DynamoDBTable00Credits00bmNwR
+      EvaluationPeriods: 2
+      InsufficientDataActions: []
+      MetricName: ConsumedReadCapacityUnits
+      Namespace: AWS/DynamoDB
+      OKActions: []
       Period: 60
-      EvaluationPeriods: 15
-      Namespace: "AWS/DynamoDB"
-      OKActions: []
-      AlarmActions:
-      - "arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:03ac2a89-c3e3-42c8-9389-1b14e941460a:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/fac35973-b33b-46d0-8216-8fd8262e485b"
-      MetricName: "ConsumedWriteCapacityUnits"
+      Statistic: Sum
+      Tags: []
+      Threshold: 42
+    Type: AWS::CloudWatch::Alarm
+    UpdateReplacePolicy: Retain
+  CloudWatchAlarm00TargetTrackingtableCreditsAlarmHigh8afc3d23c3c74154872cf972c2f726ad00fJ94k:
+    DeletionPolicy: Retain
+    Properties:
       ActionsEnabled: true
-      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:03ac2a89-c3e3-42c8-9389-1b14e941460a:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/fac35973-b33b-46d0-8216-8fd8262e485b."
-      AlarmName: "TargetTracking-table/Credits-AlarmLow-647fd4bc-f74a-434b-829e-480e8e10fa49"
-      Statistic: "Sum"
+      AlarmActions:
+      - arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:03ac2a89-c3e3-42c8-9389-1b14e941460a:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/fac35973-b33b-46d0-8216-8fd8262e485b
+      AlarmDescription: DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:03ac2a89-c3e3-42c8-9389-1b14e941460a:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/fac35973-b33b-46d0-8216-8fd8262e485b.
+      AlarmName: TargetTracking-table/Credits-AlarmHigh-8afc3d23-c3c7-4154-872c-f972c2f726ad
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+      - Name: TableName
+        Value:
+          Ref: DynamoDBTable00Credits00bmNwR
+      EvaluationPeriods: 2
       InsufficientDataActions: []
+      MetricName: ConsumedWriteCapacityUnits
+      Namespace: AWS/DynamoDB
+      OKActions: []
+      Period: 60
+      Statistic: Sum
+      Tags: []
+      Threshold: 42
+    Type: AWS::CloudWatch::Alarm
+    UpdateReplacePolicy: Retain
+  CloudWatchAlarm00TargetTrackingtableCreditsAlarmLow336ae7f43d314c689a219d57376e59bd00Jz4aI:
+    DeletionPolicy: Retain
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+      - arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:f5e845d8-86eb-41aa-af80-726860c96f44:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/5faa38a3-acf1-49a6-bd5d-f10e51635fc7
+      AlarmDescription: DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:f5e845d8-86eb-41aa-af80-726860c96f44:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/5faa38a3-acf1-49a6-bd5d-f10e51635fc7.
+      AlarmName: TargetTracking-table/Credits-AlarmLow-336ae7f4-3d31-4c68-9a21-9d57376e59bd
+      ComparisonOperator: LessThanThreshold
+      Dimensions:
+      - Name: TableName
+        Value:
+          Ref: DynamoDBTable00Credits00bmNwR
+      EvaluationPeriods: 15
+      InsufficientDataActions: []
+      MetricName: ConsumedReadCapacityUnits
+      Namespace: AWS/DynamoDB
+      OKActions: []
+      Period: 60
+      Statistic: Sum
       Tags: []
       Threshold: 30
-  IAMRole00CRUDOrdersrole1apevx1n00iQKgx:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::IAM::Role"
-    DeletionPolicy: "Retain"
+    Type: AWS::CloudWatch::Alarm
+    UpdateReplacePolicy: Retain
+  CloudWatchAlarm00TargetTrackingtableCreditsAlarmLow647fd4bcf74a434b829e480e8e10fa49009l9SV:
+    DeletionPolicy: Retain
     Properties:
-      Path: "/service-role/"
-      ManagedPolicyArns:
-      - "arn:aws:iam::513585459204:policy/ConsumerLambdaPolicy"
-      - "arn:aws:iam::513585459204:policy/DevicesTablePolicy"
-      - "arn:aws:iam::513585459204:policy/CallbackEnquePolicy"
-      - "arn:aws:iam::513585459204:policy/service-role/AWSLambdaBasicExecutionRole-9c75451e-a5dc-48bd-bf31-e1302538a138"
-      MaxSessionDuration: 3600
-      RoleName: "CRUDOrders-role-1apevx1n"
-      Policies:
-      - PolicyDocument:
-          Version: "2012-10-17"
-          Statement:
-          - Resource: "arn:aws:lambda:eu-north-1:513585459204:function:CRUDOrders"
-            Action: "lambda:InvokeFunction"
-            Effect: "Allow"
-        PolicyName: "InvokelambdaForCallback"
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-        - Action: "sts:AssumeRole"
-          Effect: "Allow"
-          Principal:
-            Service:
-            - "apigateway.amazonaws.com"
-            - "lambda.amazonaws.com"
-  SQSQueue00DLQCreditsQueuefifo00kIV3x:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::SQS::Queue"
-    DeletionPolicy: "Retain"
+      ActionsEnabled: true
+      AlarmActions:
+      - arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:03ac2a89-c3e3-42c8-9389-1b14e941460a:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/fac35973-b33b-46d0-8216-8fd8262e485b
+      AlarmDescription: DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:03ac2a89-c3e3-42c8-9389-1b14e941460a:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/fac35973-b33b-46d0-8216-8fd8262e485b.
+      AlarmName: TargetTracking-table/Credits-AlarmLow-647fd4bc-f74a-434b-829e-480e8e10fa49
+      ComparisonOperator: LessThanThreshold
+      Dimensions:
+      - Name: TableName
+        Value:
+          Ref: DynamoDBTable00Credits00bmNwR
+      EvaluationPeriods: 15
+      InsufficientDataActions: []
+      MetricName: ConsumedWriteCapacityUnits
+      Namespace: AWS/DynamoDB
+      OKActions: []
+      Period: 60
+      Statistic: Sum
+      Tags: []
+      Threshold: 30
+    Type: AWS::CloudWatch::Alarm
+    UpdateReplacePolicy: Retain
+  CloudWatchAlarm00TargetTrackingtableCreditsProvisionedCapacityHighb67b7b8f228a48bca20f4d54c0960d11007l2hn:
+    DeletionPolicy: Retain
     Properties:
-      ReceiveMessageWaitTimeSeconds: 0
-      SqsManagedSseEnabled: true
-      FifoThroughputLimit: "perMessageGroupId"
-      DelaySeconds: 0
-      FifoQueue: true
-      MessageRetentionPeriod: 345600
-      MaximumMessageSize: 262144
-      DeduplicationScope: "messageGroup"
-      VisibilityTimeout: 30
-      ContentBasedDeduplication: true
-      QueueName: "DLQCreditsQueue.fifo"
-  apiapi212f2e80:
+      ActionsEnabled: true
+      AlarmActions:
+      - arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:03ac2a89-c3e3-42c8-9389-1b14e941460a:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/fac35973-b33b-46d0-8216-8fd8262e485b
+      AlarmDescription: DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:03ac2a89-c3e3-42c8-9389-1b14e941460a:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/fac35973-b33b-46d0-8216-8fd8262e485b.
+      AlarmName: TargetTracking-table/Credits-ProvisionedCapacityHigh-b67b7b8f-228a-48bc-a20f-4d54c0960d11
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+      - Name: TableName
+        Value:
+          Ref: DynamoDBTable00Credits00bmNwR
+      EvaluationPeriods: 3
+      InsufficientDataActions: []
+      MetricName: ProvisionedWriteCapacityUnits
+      Namespace: AWS/DynamoDB
+      OKActions: []
+      Period: 300
+      Statistic: Average
+      Tags: []
+      Threshold: 1
+    Type: AWS::CloudWatch::Alarm
+    UpdateReplacePolicy: Retain
+  CloudWatchAlarm00TargetTrackingtableCreditsProvisionedCapacityHighff46f8794fc04c6e959a6b59796848970099TCP:
+    DeletionPolicy: Retain
     Properties:
-      TemplateURL: "https://s3.amazonaws.com/amplify-latestfullstackadtv-dev-c3ff6-deployment/amplify-cfn-templates/api/api212f2e80-cloudformation-template.json"
-      Parameters:
-        functionlatestfullstackadtv72f7ac0eName:
-          Fn::GetAtt:
-          - "functionlatestfullstackadtv72f7ac0e"
-          - "Outputs.Name"
-        env: "dev"
-        functionlatestfullstackadtv72f7ac0eArn:
-          Fn::GetAtt:
-          - "functionlatestfullstackadtv72f7ac0e"
-          - "Outputs.Arn"
-    Type: "AWS::CloudFormation::Stack"
+      ActionsEnabled: true
+      AlarmActions:
+      - arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:f5e845d8-86eb-41aa-af80-726860c96f44:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/5faa38a3-acf1-49a6-bd5d-f10e51635fc7
+      AlarmDescription: DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:f5e845d8-86eb-41aa-af80-726860c96f44:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/5faa38a3-acf1-49a6-bd5d-f10e51635fc7.
+      AlarmName: TargetTracking-table/Credits-ProvisionedCapacityHigh-ff46f879-4fc0-4c6e-959a-6b5979684897
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+      - Name: TableName
+        Value:
+          Ref: DynamoDBTable00Credits00bmNwR
+      EvaluationPeriods: 3
+      InsufficientDataActions: []
+      MetricName: ProvisionedReadCapacityUnits
+      Namespace: AWS/DynamoDB
+      OKActions: []
+      Period: 300
+      Statistic: Average
+      Tags: []
+      Threshold: 1
+    Type: AWS::CloudWatch::Alarm
+    UpdateReplacePolicy: Retain
+  CloudWatchAlarm00TargetTrackingtableCreditsProvisionedCapacityLow119c7a3200b740fd9982ab5a18cdadca000aT84:
+    DeletionPolicy: Retain
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+      - arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:03ac2a89-c3e3-42c8-9389-1b14e941460a:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/fac35973-b33b-46d0-8216-8fd8262e485b
+      AlarmDescription: DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:03ac2a89-c3e3-42c8-9389-1b14e941460a:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/fac35973-b33b-46d0-8216-8fd8262e485b.
+      AlarmName: TargetTracking-table/Credits-ProvisionedCapacityLow-119c7a32-00b7-40fd-9982-ab5a18cdadca
+      ComparisonOperator: LessThanThreshold
+      Dimensions:
+      - Name: TableName
+        Value:
+          Ref: DynamoDBTable00Credits00bmNwR
+      EvaluationPeriods: 3
+      InsufficientDataActions: []
+      MetricName: ProvisionedWriteCapacityUnits
+      Namespace: AWS/DynamoDB
+      OKActions: []
+      Period: 300
+      Statistic: Average
+      Tags: []
+      Threshold: 1
+    Type: AWS::CloudWatch::Alarm
+    UpdateReplacePolicy: Retain
+  CloudWatchAlarm00TargetTrackingtableCreditsProvisionedCapacityLow517e395bed8243e7bb98ac1a961b976000lAi2w:
+    DeletionPolicy: Retain
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+      - arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:f5e845d8-86eb-41aa-af80-726860c96f44:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/5faa38a3-acf1-49a6-bd5d-f10e51635fc7
+      AlarmDescription: DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:f5e845d8-86eb-41aa-af80-726860c96f44:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/5faa38a3-acf1-49a6-bd5d-f10e51635fc7.
+      AlarmName: TargetTracking-table/Credits-ProvisionedCapacityLow-517e395b-ed82-43e7-bb98-ac1a961b9760
+      ComparisonOperator: LessThanThreshold
+      Dimensions:
+      - Name: TableName
+        Value:
+          Ref: DynamoDBTable00Credits00bmNwR
+      EvaluationPeriods: 3
+      InsufficientDataActions: []
+      MetricName: ProvisionedReadCapacityUnits
+      Namespace: AWS/DynamoDB
+      OKActions: []
+      Period: 300
+      Statistic: Average
+      Tags: []
+      Threshold: 1
+    Type: AWS::CloudWatch::Alarm
+    UpdateReplacePolicy: Retain
+  CloudWatchAlarm00TargetTrackingtabledevicesAlarmHigh52461fee2f9c46f28ae0f82de3fd2e4b003Ksd6:
+    DeletionPolicy: Retain
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+      - arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:a7abf140-bca6-411d-b679-8d624b486ce6:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/de66b0e6-ad16-4750-8e3b-0aa484fa56d2
+      AlarmDescription: DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:a7abf140-bca6-411d-b679-8d624b486ce6:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/de66b0e6-ad16-4750-8e3b-0aa484fa56d2.
+      AlarmName: TargetTracking-table/devices-AlarmHigh-52461fee-2f9c-46f2-8ae0-f82de3fd2e4b
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+      - Name: TableName
+        Value:
+          Ref: DynamoDBTable00devices00dtXNS
+      EvaluationPeriods: 2
+      InsufficientDataActions: []
+      MetricName: ConsumedWriteCapacityUnits
+      Namespace: AWS/DynamoDB
+      OKActions: []
+      Period: 60
+      Statistic: Sum
+      Tags: []
+      Threshold: 42
+    Type: AWS::CloudWatch::Alarm
+    UpdateReplacePolicy: Retain
+  CloudWatchAlarm00TargetTrackingtabledevicesAlarmHigh7a5e1fbaaa9d42b1a4bc263ae2b7ed4500Pv4l9:
+    DeletionPolicy: Retain
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+      - arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:74cbaa66-3554-4c48-bed4-b08330e4ed77:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/77f8498d-a54d-46f3-b561-770147f050c5
+      AlarmDescription: DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:74cbaa66-3554-4c48-bed4-b08330e4ed77:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/77f8498d-a54d-46f3-b561-770147f050c5.
+      AlarmName: TargetTracking-table/devices-AlarmHigh-7a5e1fba-aa9d-42b1-a4bc-263ae2b7ed45
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+      - Name: TableName
+        Value:
+          Ref: DynamoDBTable00devices00dtXNS
+      EvaluationPeriods: 2
+      InsufficientDataActions: []
+      MetricName: ConsumedReadCapacityUnits
+      Namespace: AWS/DynamoDB
+      OKActions: []
+      Period: 60
+      Statistic: Sum
+      Tags: []
+      Threshold: 42
+    Type: AWS::CloudWatch::Alarm
+    UpdateReplacePolicy: Retain
+  CloudWatchAlarm00TargetTrackingtabledevicesAlarmLow400dc9daab94481489d3b44ecd45e43b00DgvVE:
+    DeletionPolicy: Retain
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+      - arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:74cbaa66-3554-4c48-bed4-b08330e4ed77:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/77f8498d-a54d-46f3-b561-770147f050c5
+      AlarmDescription: DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:74cbaa66-3554-4c48-bed4-b08330e4ed77:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/77f8498d-a54d-46f3-b561-770147f050c5.
+      AlarmName: TargetTracking-table/devices-AlarmLow-400dc9da-ab94-4814-89d3-b44ecd45e43b
+      ComparisonOperator: LessThanThreshold
+      Dimensions:
+      - Name: TableName
+        Value:
+          Ref: DynamoDBTable00devices00dtXNS
+      EvaluationPeriods: 15
+      InsufficientDataActions: []
+      MetricName: ConsumedReadCapacityUnits
+      Namespace: AWS/DynamoDB
+      OKActions: []
+      Period: 60
+      Statistic: Sum
+      Tags: []
+      Threshold: 30
+    Type: AWS::CloudWatch::Alarm
+    UpdateReplacePolicy: Retain
+  CloudWatchAlarm00TargetTrackingtabledevicesAlarmLow6ee95699c7504ebda3a875b7fcd0083300bZC1w:
+    DeletionPolicy: Retain
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+      - arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:a7abf140-bca6-411d-b679-8d624b486ce6:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/de66b0e6-ad16-4750-8e3b-0aa484fa56d2
+      AlarmDescription: DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:a7abf140-bca6-411d-b679-8d624b486ce6:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/de66b0e6-ad16-4750-8e3b-0aa484fa56d2.
+      AlarmName: TargetTracking-table/devices-AlarmLow-6ee95699-c750-4ebd-a3a8-75b7fcd00833
+      ComparisonOperator: LessThanThreshold
+      Dimensions:
+      - Name: TableName
+        Value:
+          Ref: DynamoDBTable00devices00dtXNS
+      EvaluationPeriods: 15
+      InsufficientDataActions: []
+      MetricName: ConsumedWriteCapacityUnits
+      Namespace: AWS/DynamoDB
+      OKActions: []
+      Period: 60
+      Statistic: Sum
+      Tags: []
+      Threshold: 30
+    Type: AWS::CloudWatch::Alarm
+    UpdateReplacePolicy: Retain
+  CloudWatchAlarm00TargetTrackingtabledevicesProvisionedCapacityHighd37808b90d584b1193e24e3e567400d000R4xvm:
+    DeletionPolicy: Retain
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+      - arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:74cbaa66-3554-4c48-bed4-b08330e4ed77:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/77f8498d-a54d-46f3-b561-770147f050c5
+      AlarmDescription: DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:74cbaa66-3554-4c48-bed4-b08330e4ed77:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/77f8498d-a54d-46f3-b561-770147f050c5.
+      AlarmName: TargetTracking-table/devices-ProvisionedCapacityHigh-d37808b9-0d58-4b11-93e2-4e3e567400d0
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+      - Name: TableName
+        Value:
+          Ref: DynamoDBTable00devices00dtXNS
+      EvaluationPeriods: 3
+      InsufficientDataActions: []
+      MetricName: ProvisionedReadCapacityUnits
+      Namespace: AWS/DynamoDB
+      OKActions: []
+      Period: 300
+      Statistic: Average
+      Tags: []
+      Threshold: 1
+    Type: AWS::CloudWatch::Alarm
+    UpdateReplacePolicy: Retain
+  CloudWatchAlarm00TargetTrackingtabledevicesProvisionedCapacityHighfdbf771f282643b0bbd416b93e2b19e200oss8a:
+    DeletionPolicy: Retain
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+      - arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:a7abf140-bca6-411d-b679-8d624b486ce6:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/de66b0e6-ad16-4750-8e3b-0aa484fa56d2
+      AlarmDescription: DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:a7abf140-bca6-411d-b679-8d624b486ce6:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/de66b0e6-ad16-4750-8e3b-0aa484fa56d2.
+      AlarmName: TargetTracking-table/devices-ProvisionedCapacityHigh-fdbf771f-2826-43b0-bbd4-16b93e2b19e2
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+      - Name: TableName
+        Value:
+          Ref: DynamoDBTable00devices00dtXNS
+      EvaluationPeriods: 3
+      InsufficientDataActions: []
+      MetricName: ProvisionedWriteCapacityUnits
+      Namespace: AWS/DynamoDB
+      OKActions: []
+      Period: 300
+      Statistic: Average
+      Tags: []
+      Threshold: 1
+    Type: AWS::CloudWatch::Alarm
+    UpdateReplacePolicy: Retain
+  CloudWatchAlarm00TargetTrackingtabledevicesProvisionedCapacityLow95f5cc90086d45feae28e878539ad81800DzcsR:
+    DeletionPolicy: Retain
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+      - arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:74cbaa66-3554-4c48-bed4-b08330e4ed77:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/77f8498d-a54d-46f3-b561-770147f050c5
+      AlarmDescription: DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:74cbaa66-3554-4c48-bed4-b08330e4ed77:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/77f8498d-a54d-46f3-b561-770147f050c5.
+      AlarmName: TargetTracking-table/devices-ProvisionedCapacityLow-95f5cc90-086d-45fe-ae28-e878539ad818
+      ComparisonOperator: LessThanThreshold
+      Dimensions:
+      - Name: TableName
+        Value:
+          Ref: DynamoDBTable00devices00dtXNS
+      EvaluationPeriods: 3
+      InsufficientDataActions: []
+      MetricName: ProvisionedReadCapacityUnits
+      Namespace: AWS/DynamoDB
+      OKActions: []
+      Period: 300
+      Statistic: Average
+      Tags: []
+      Threshold: 1
+    Type: AWS::CloudWatch::Alarm
+    UpdateReplacePolicy: Retain
+  CloudWatchAlarm00TargetTrackingtabledevicesProvisionedCapacityLowdb8bd3928b964eb2833648cc860de7f300rQfm2:
+    DeletionPolicy: Retain
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+      - arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:a7abf140-bca6-411d-b679-8d624b486ce6:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/de66b0e6-ad16-4750-8e3b-0aa484fa56d2
+      AlarmDescription: DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:a7abf140-bca6-411d-b679-8d624b486ce6:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/de66b0e6-ad16-4750-8e3b-0aa484fa56d2.
+      AlarmName: TargetTracking-table/devices-ProvisionedCapacityLow-db8bd392-8b96-4eb2-8336-48cc860de7f3
+      ComparisonOperator: LessThanThreshold
+      Dimensions:
+      - Name: TableName
+        Value:
+          Ref: DynamoDBTable00devices00dtXNS
+      EvaluationPeriods: 3
+      InsufficientDataActions: []
+      MetricName: ProvisionedWriteCapacityUnits
+      Namespace: AWS/DynamoDB
+      OKActions: []
+      Period: 300
+      Statistic: Average
+      Tags: []
+      Threshold: 1
+    Type: AWS::CloudWatch::Alarm
+    UpdateReplacePolicy: Retain
   DeploymentBucket:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::S3::Bucket"
-    DeletionPolicy: "Retain"
+    DeletionPolicy: Retain
     Properties:
       BucketEncryption:
         ServerSideEncryptionConfiguration:
         - ServerSideEncryptionByDefault:
-            SSEAlgorithm: "AES256"
+            SSEAlgorithm: AES256
       BucketName:
-        Ref: "DeploymentBucketName"
-  CloudWatchAlarm00TargetTrackingtableCreditsProvisionedCapacityHighb67b7b8f228a48bca20f4d54c0960d11007l2hn:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::CloudWatch::Alarm"
-    DeletionPolicy: "Retain"
+        Ref: DeploymentBucketName
+    Type: AWS::S3::Bucket
+    UpdateReplacePolicy: Retain
+  DynamoDBTable00Credits00bmNwR:
+    DeletionPolicy: Retain
     Properties:
-      ComparisonOperator: "GreaterThanThreshold"
-      Dimensions:
-      - Value:
-          Ref: "DynamoDBTable00Credits00bmNwR"
-        Name: "TableName"
-      Period: 300
-      EvaluationPeriods: 3
-      Namespace: "AWS/DynamoDB"
-      OKActions: []
-      AlarmActions:
-      - "arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:03ac2a89-c3e3-42c8-9389-1b14e941460a:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/fac35973-b33b-46d0-8216-8fd8262e485b"
-      MetricName: "ProvisionedWriteCapacityUnits"
-      ActionsEnabled: true
-      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:03ac2a89-c3e3-42c8-9389-1b14e941460a:resource/dynamodb/table/Credits:policyName/$Credits-scaling-policy:createdBy/fac35973-b33b-46d0-8216-8fd8262e485b."
-      AlarmName: "TargetTracking-table/Credits-ProvisionedCapacityHigh-b67b7b8f-228a-48bc-a20f-4d54c0960d11"
-      Statistic: "Average"
-      InsufficientDataActions: []
+      AttributeDefinitions:
+      - AttributeName: Owner_id
+        AttributeType: S
+      BillingMode: PROVISIONED
+      ContributorInsightsSpecification:
+        Enabled: false
+      DeletionProtectionEnabled: false
+      KeySchema:
+      - AttributeName: Owner_id
+        KeyType: HASH
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: false
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      SSESpecification:
+        SSEEnabled: false
+      TableClass: STANDARD
+      TableName: Credits
       Tags: []
-      Threshold: 1
-  CloudWatchAlarm00TargetTrackingtabledevicesAlarmHigh7a5e1fbaaa9d42b1a4bc263ae2b7ed4500Pv4l9:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::CloudWatch::Alarm"
-    DeletionPolicy: "Retain"
+      TimeToLiveSpecification:
+        Enabled: false
+    Type: AWS::DynamoDB::Table
+    UpdateReplacePolicy: Retain
+  DynamoDBTable00devices00dtXNS:
+    DeletionPolicy: Retain
     Properties:
-      ComparisonOperator: "GreaterThanThreshold"
-      Dimensions:
-      - Value:
-          Ref: "DynamoDBTable00devices00dtXNS"
-        Name: "TableName"
-      Period: 60
-      EvaluationPeriods: 2
-      Namespace: "AWS/DynamoDB"
-      OKActions: []
-      AlarmActions:
-      - "arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:74cbaa66-3554-4c48-bed4-b08330e4ed77:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/77f8498d-a54d-46f3-b561-770147f050c5"
-      MetricName: "ConsumedReadCapacityUnits"
-      ActionsEnabled: true
-      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:eu-north-1:513585459204:scalingPolicy:74cbaa66-3554-4c48-bed4-b08330e4ed77:resource/dynamodb/table/devices:policyName/$devices-scaling-policy:createdBy/77f8498d-a54d-46f3-b561-770147f050c5."
-      AlarmName: "TargetTracking-table/devices-AlarmHigh-7a5e1fba-aa9d-42b1-a4bc-263ae2b7ed45"
-      Statistic: "Sum"
-      InsufficientDataActions: []
+      AttributeDefinitions:
+      - AttributeName: ID
+        AttributeType: S
+      BillingMode: PROVISIONED
+      ContributorInsightsSpecification:
+        Enabled: false
+      DeletionProtectionEnabled: false
+      KeySchema:
+      - AttributeName: ID
+        KeyType: HASH
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      SSESpecification:
+        SSEEnabled: false
+      TableClass: STANDARD
+      TableName: devices
       Tags: []
-      Threshold: 42
+      TimeToLiveSpecification:
+        Enabled: false
+    Type: AWS::DynamoDB::Table
+    UpdateReplacePolicy: Retain
   IAMManagedPolicy00policyCallbackEnquePolicy00y0qG0:
-    UpdateReplacePolicy: "Retain"
-    Type: "AWS::IAM::ManagedPolicy"
-    DeletionPolicy: "Retain"
+    DeletionPolicy: Retain
     Properties:
-      ManagedPolicyName: "CallbackEnquePolicy"
-      Path: "/"
-      Description: ""
+      Description: ''
       Groups: []
+      ManagedPolicyName: CallbackEnquePolicy
+      Path: /
       PolicyDocument:
-        Version: "2012-10-17"
         Statement:
-        - Resource:
-          - "arn:aws:sqs:eu-north-1:513585459204:CallBackQueue"
-          Action:
-          - "sqs:SendMessage"
-          - "sqs:GetQueueUrl"
-          Effect: "Allow"
+        - Action:
+          - sqs:SendMessage
+          - sqs:GetQueueUrl
+          Effect: Allow
+          Resource:
+          - arn:aws:sqs:eu-north-1:513585459204:CallBackQueue
+        Version: '2012-10-17'
       Roles:
-      - Ref: "IAMRole00CreditsCrudLambdaRole00SXxLc"
-      - Ref: "IAMRole00CRUDOrdersrole1apevx1n00iQKgx"
+      - Ref: IAMRole00CreditsCrudLambdaRole00SXxLc
+      - Ref: IAMRole00CRUDOrdersrole1apevx1n00iQKgx
       Users: []
+    Type: AWS::IAM::ManagedPolicy
+    UpdateReplacePolicy: Retain
+  IAMManagedPolicy00policyConsumerCreditsLambdaPolicy00D6C3Y:
+    DeletionPolicy: Retain
+    Properties:
+      Description: ''
+      Groups: []
+      ManagedPolicyName: ConsumerCreditsLambdaPolicy
+      Path: /
+      PolicyDocument:
+        Statement:
+        - Action:
+          - sqs:ReceiveMessage
+          - sqs:DeleteMessage
+          - sqs:GetQueueAttributes
+          Effect: Allow
+          Resource: arn:aws:sqs:eu-north-1:513585459204:CreditsQueue.fifo
+        Version: '2012-10-17'
+      Roles:
+      - Ref: IAMRole00CreditsCrudLambdaRole00SXxLc
+      Users: []
+    Type: AWS::IAM::ManagedPolicy
+    UpdateReplacePolicy: Retain
+  IAMManagedPolicy00policyConsumerLambdaPolicy006MyKk:
+    DeletionPolicy: Retain
+    Properties:
+      Description: ''
+      Groups: []
+      ManagedPolicyName: ConsumerLambdaPolicy
+      Path: /
+      PolicyDocument:
+        Statement:
+        - Action:
+          - sqs:ReceiveMessage
+          - sqs:DeleteMessage
+          - sqs:GetQueueAttributes
+          Effect: Allow
+          Resource: arn:aws:sqs:eu-north-1:513585459204:MyQueue.fifo
+        Version: '2012-10-17'
+      Roles:
+      - Ref: IAMRole00CRUDOrdersrole1apevx1n00iQKgx
+      Users: []
+    Type: AWS::IAM::ManagedPolicy
+    UpdateReplacePolicy: Retain
+  IAMManagedPolicy00policyCreditsPolicy00fuUL8:
+    DeletionPolicy: Retain
+    Properties:
+      Description: ''
+      Groups: []
+      ManagedPolicyName: CreditsPolicy
+      Path: /
+      PolicyDocument:
+        Statement:
+        - Action:
+          - dynamodb:GetItem
+          - dynamodb:PutItem
+          - dynamodb:UpdateItem
+          - dynamodb:DeleteItem
+          - dynamodb:Scan
+          - dynamodb:Query
+          Effect: Allow
+          Resource: arn:aws:dynamodb:eu-north-1:513585459204:table/Credits
+        Version: '2012-10-17'
+      Roles:
+      - Ref: IAMRole00CreditsCrudLambdaRole00SXxLc
+      Users: []
+    Type: AWS::IAM::ManagedPolicy
+    UpdateReplacePolicy: Retain
+  IAMManagedPolicy00policyDevicesTablePolicy00TK1BK:
+    DeletionPolicy: Retain
+    Properties:
+      Description: ''
+      Groups: []
+      ManagedPolicyName: DevicesTablePolicy
+      Path: /
+      PolicyDocument:
+        Statement:
+        - Action:
+          - dynamodb:GetItem
+          - dynamodb:PutItem
+          - dynamodb:UpdateItem
+          - dynamodb:DeleteItem
+          - dynamodb:Scan
+          - dynamodb:Query
+          Effect: Allow
+          Resource: arn:aws:dynamodb:eu-north-1:513585459204:table/devices
+        Version: '2012-10-17'
+      Roles:
+      - Ref: IAMRole00DevicesTableRole000pZB6
+      - Ref: IAMRole00CRUDOrdersrole1apevx1n00iQKgx
+      Users: []
+    Type: AWS::IAM::ManagedPolicy
+    UpdateReplacePolicy: Retain
+  IAMManagedPolicy00policyMonitoringCallback00h5VS4:
+    DeletionPolicy: Retain
+    Properties:
+      Description: ''
+      Groups: []
+      ManagedPolicyName: MonitoringCallback
+      Path: /
+      PolicyDocument:
+        Statement:
+        - Action: logs:CreateLogGroup
+          Effect: Allow
+          Resource: arn:aws:logs:eu-north-1:513585459204:*
+        - Action:
+          - logs:CreateLogStream
+          - logs:PutLogEvents
+          Effect: Allow
+          Resource:
+          - arn:aws:lambda:eu-north-1:513585459204:function:CallbackLambda:*
+        Version: '2012-10-17'
+      Roles:
+      - Ref: IAMRole00CallbackLambdaroleazy4exej00hl6bx
+      Users: []
+    Type: AWS::IAM::ManagedPolicy
+    UpdateReplacePolicy: Retain
+  IAMManagedPolicy00policycallbackConsumerPolicy00FOvXm:
+    DeletionPolicy: Retain
+    Properties:
+      Description: ''
+      Groups: []
+      ManagedPolicyName: callbackConsumerPolicy
+      Path: /
+      PolicyDocument:
+        Statement:
+        - Action:
+          - sqs:ReceiveMessage
+          - sqs:DeleteMessage
+          - sqs:GetQueueAttributes
+          Effect: Allow
+          Resource: arn:aws:sqs:eu-north-1:513585459204:CallBackQueue
+        Version: '2012-10-17'
+      Roles:
+      - Ref: IAMRole00CallbackLambdaroleazy4exej00hl6bx
+      Users: []
+    Type: AWS::IAM::ManagedPolicy
+    UpdateReplacePolicy: Retain
+  IAMManagedPolicy00policyserviceroleAWSLambdaBasicExecutionRole041df3f8e82f43dfa37bd3724fe8103600BThzy:
+    DeletionPolicy: Retain
+    Properties:
+      Description: ''
+      Groups: []
+      ManagedPolicyName: AWSLambdaBasicExecutionRole-041df3f8-e82f-43df-a37b-d3724fe81036
+      Path: /service-role/
+      PolicyDocument:
+        Statement:
+        - Action: logs:CreateLogGroup
+          Effect: Allow
+          Resource: arn:aws:logs:eu-north-1:513585459204:*
+        - Action:
+          - logs:CreateLogStream
+          - logs:PutLogEvents
+          Effect: Allow
+          Resource:
+          - arn:aws:logs:eu-north-1:513585459204:log-group:/aws/lambda/CallbackLambda:*
+        Version: '2012-10-17'
+      Roles:
+      - Ref: IAMRole00CallbackLambdaroleazy4exej00hl6bx
+      Users: []
+    Type: AWS::IAM::ManagedPolicy
+    UpdateReplacePolicy: Retain
+  IAMManagedPolicy00policyserviceroleAWSLambdaBasicExecutionRole9c75451ea5dc48bdbf31e1302538a13800nEnHq:
+    DeletionPolicy: Retain
+    Properties:
+      Description: ''
+      Groups: []
+      ManagedPolicyName: AWSLambdaBasicExecutionRole-9c75451e-a5dc-48bd-bf31-e1302538a138
+      Path: /service-role/
+      PolicyDocument:
+        Statement:
+        - Action: logs:CreateLogGroup
+          Effect: Allow
+          Resource: arn:aws:logs:eu-north-1:513585459204:*
+        - Action:
+          - logs:CreateLogStream
+          - logs:PutLogEvents
+          Effect: Allow
+          Resource:
+          - arn:aws:logs:eu-north-1:513585459204:log-group:/aws/lambda/CRUDOrders:*
+        Version: '2012-10-17'
+      Roles:
+      - Ref: IAMRole00CRUDOrdersrole1apevx1n00iQKgx
+      Users: []
+    Type: AWS::IAM::ManagedPolicy
+    UpdateReplacePolicy: Retain
+  IAMRole00CRUDOrdersrole1apevx1n00iQKgx:
+    DeletionPolicy: Retain
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action: sts:AssumeRole
+          Effect: Allow
+          Principal:
+            Service:
+            - apigateway.amazonaws.com
+            - lambda.amazonaws.com
+        Version: '2012-10-17'
+      ManagedPolicyArns:
+      - arn:aws:iam::513585459204:policy/ConsumerLambdaPolicy
+      - arn:aws:iam::513585459204:policy/DevicesTablePolicy
+      - arn:aws:iam::513585459204:policy/CallbackEnquePolicy
+      - arn:aws:iam::513585459204:policy/service-role/AWSLambdaBasicExecutionRole-9c75451e-a5dc-48bd-bf31-e1302538a138
+      MaxSessionDuration: 3600
+      Path: /service-role/
+      Policies:
+      - PolicyDocument:
+          Statement:
+          - Action: lambda:InvokeFunction
+            Effect: Allow
+            Resource: arn:aws:lambda:eu-north-1:513585459204:function:CRUDOrders
+          Version: '2012-10-17'
+        PolicyName: InvokelambdaForCallback
+      RoleName: CRUDOrders-role-1apevx1n
+    Type: AWS::IAM::Role
+    UpdateReplacePolicy: Retain
+  IAMRole00CallbackLambdaroleazy4exej00hl6bx:
+    DeletionPolicy: Retain
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action: sts:AssumeRole
+          Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+        Version: '2012-10-17'
+      ManagedPolicyArns:
+      - arn:aws:iam::513585459204:policy/service-role/AWSLambdaBasicExecutionRole-041df3f8-e82f-43df-a37b-d3724fe81036
+      - arn:aws:iam::513585459204:policy/callbackConsumerPolicy
+      - arn:aws:iam::513585459204:policy/MonitoringCallback
+      MaxSessionDuration: 3600
+      Path: /service-role/
+      RoleName: CallbackLambda-role-azy4exej
+    Type: AWS::IAM::Role
+    UpdateReplacePolicy: Retain
+  IAMRole00CreditsCrudLambdaRole00SXxLc:
+    DeletionPolicy: Retain
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action: sts:AssumeRole
+          Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+        Version: '2012-10-17'
+      Description: Allows Lambda functions to call AWS services on your behalf.
+      ManagedPolicyArns:
+      - arn:aws:iam::513585459204:policy/CreditsPolicy
+      - arn:aws:iam::513585459204:policy/CallbackEnquePolicy
+      - arn:aws:iam::513585459204:policy/ConsumerCreditsLambdaPolicy
+      MaxSessionDuration: 3600
+      Path: /
+      Policies:
+      - PolicyDocument:
+          Statement:
+          - Action: logs:CreateLogGroup
+            Effect: Allow
+            Resource: arn:aws:logs:eu-north-1:513585459204:*
+          - Action:
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Effect: Allow
+            Resource:
+            - arn:aws:logs:eu-north-1:513585459204:log-group:/aws/lambda/CRUDWallet:*
+          Version: '2012-10-17'
+        PolicyName: Monitoring
+      RoleName: CreditsCrudLambdaRole
+    Type: AWS::IAM::Role
+    UpdateReplacePolicy: Retain
+  IAMRole00DevicesTableRole000pZB6:
+    DeletionPolicy: Retain
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action: sts:AssumeRole
+          Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+        Version: '2012-10-17'
+      Description: Allows Lambda functions to call AWS services on your behalf.
+      ManagedPolicyArns:
+      - arn:aws:iam::513585459204:policy/DevicesTablePolicy
+      MaxSessionDuration: 3600
+      Path: /
+      RoleName: DevicesTableRole
+    Type: AWS::IAM::Role
+    UpdateReplacePolicy: Retain
+  LambdaEventSourceMapping002ed935a8ba174d0ca438394c091ff5c000loyJA:
+    DeletionPolicy: Retain
+    Properties:
+      BatchSize: 10
+      Enabled: true
+      EventSourceArn:
+        Fn::GetAtt:
+        - SQSQueue00MyQueuefifo00V0baV
+        - Arn
+      FunctionName:
+        Fn::GetAtt:
+        - LambdaFunction00CRUDOrders00fVTT5
+        - Arn
+      MaximumBatchingWindowInSeconds: 0
+    Type: AWS::Lambda::EventSourceMapping
+    UpdateReplacePolicy: Retain
+  LambdaEventSourceMapping00aace62870a204edd9a2b0f3b4472b38d00JkFya:
+    DeletionPolicy: Retain
+    Properties:
+      BatchSize: 10
+      Enabled: true
+      EventSourceArn:
+        Fn::GetAtt:
+        - SQSQueue00CallBackQueue00s704w
+        - Arn
+      FunctionName:
+        Fn::GetAtt:
+        - LambdaFunction00CallbackLambda009zd6u
+        - Arn
+      MaximumBatchingWindowInSeconds: 0
+    Type: AWS::Lambda::EventSourceMapping
+    UpdateReplacePolicy: Retain
+  LambdaEventSourceMapping00c4d7e7b711f64347ba87d4c8f471275a00J07wd:
+    DeletionPolicy: Retain
+    Properties:
+      BatchSize: 10
+      Enabled: true
+      EventSourceArn:
+        Fn::GetAtt:
+        - SQSQueue00CreditsQueuefifo00zm4VR
+        - Arn
+      FunctionName:
+        Fn::GetAtt:
+        - LambdaFunction00CRUDWallet00ycdDZ
+        - Arn
+      MaximumBatchingWindowInSeconds: 0
+    Type: AWS::Lambda::EventSourceMapping
+    UpdateReplacePolicy: Retain
+  LambdaFunction00CRUDOrders00fVTT5:
+    Properties:
+      Code:
+        S3Bucket: my-bucket
+        S3Key: path/to/my/deployment-package.zip
+      Handler: index.handler
+      MemorySize: 128
+      Role: arn:aws:iam::account-id:role/lambda-role
+      Runtime: python3.8
+      SnapStart:
+        ApplyOn: PublishedVersions
+      Timeout: 3
+    Type: AWS::Lambda::Function
+  LambdaFunction00CRUDWallet00ycdDZ:
+    Properties:
+      Code:
+        S3Bucket: my-bucket
+        S3Key: path/to/my/deployment-package.zip
+      Handler: index.handler
+      MemorySize: 128
+      Role: arn:aws:iam::account-id:role/lambda-role
+      Runtime: python3.8
+      SnapStart:
+        ApplyOn: PublishedVersions
+      Timeout: 3
+    Type: AWS::Lambda::Function
+  LambdaFunction00CallbackLambda009zd6u:
+    Properties:
+      Code:
+        S3Bucket: my-bucket
+        S3Key: path/to/my/deployment-package.zip
+      Handler: index.handler
+      MemorySize: 128
+      Role: arn:aws:iam::account-id:role/lambda-role
+      Runtime: python3.8
+      SnapStart:
+        ApplyOn: PublishedVersions
+      Timeout: 3
+    Type: AWS::Lambda::Function
+  LambdaPermission00functionCRUDOrders00bu9OA:
+    DeletionPolicy: Retain
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+        - LambdaFunction00CRUDOrders00fVTT5
+        - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn: arn:aws:execute-api:eu-north-1:513585459204:l0gmn7llz8/*/*/CRUDOrders
+    Type: AWS::Lambda::Permission
+    UpdateReplacePolicy: Retain
+  LambdaPermission00functionCRUDWallet00WuEoz:
+    DeletionPolicy: Retain
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+        - LambdaFunction00CRUDWallet00ycdDZ
+        - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn: arn:aws:execute-api:eu-north-1:513585459204:l0gmn7llz8/*/*/CRUDWallet
+    Type: AWS::Lambda::Permission
+    UpdateReplacePolicy: Retain
+  SQSQueue00CallBackQueue00s704w:
+    DeletionPolicy: Retain
+    Properties:
+      DelaySeconds: 0
+      MaximumMessageSize: 262144
+      MessageRetentionPeriod: 345600
+      QueueName: CallBackQueue
+      ReceiveMessageWaitTimeSeconds: 0
+      SqsManagedSseEnabled: true
+      VisibilityTimeout: 30
+    Type: AWS::SQS::Queue
+    UpdateReplacePolicy: Retain
+  SQSQueue00CreditsQueuefifo00zm4VR:
+    DeletionPolicy: Retain
+    Properties:
+      ContentBasedDeduplication: true
+      DeduplicationScope: messageGroup
+      DelaySeconds: 0
+      FifoQueue: true
+      FifoThroughputLimit: perMessageGroupId
+      MaximumMessageSize: 262144
+      MessageRetentionPeriod: 345600
+      QueueName: CreditsQueue.fifo
+      ReceiveMessageWaitTimeSeconds: 0
+      RedrivePolicy:
+        deadLetterTargetArn: arn:aws:sqs:eu-north-1:513585459204:DLQCreditsQueue.fifo
+        maxReceiveCount: 10
+      SqsManagedSseEnabled: true
+      VisibilityTimeout: 30
+    Type: AWS::SQS::Queue
+    UpdateReplacePolicy: Retain
+  SQSQueue00DLQCreditsQueuefifo00kIV3x:
+    DeletionPolicy: Retain
+    Properties:
+      ContentBasedDeduplication: true
+      DeduplicationScope: messageGroup
+      DelaySeconds: 0
+      FifoQueue: true
+      FifoThroughputLimit: perMessageGroupId
+      MaximumMessageSize: 262144
+      MessageRetentionPeriod: 345600
+      QueueName: DLQCreditsQueue.fifo
+      ReceiveMessageWaitTimeSeconds: 0
+      SqsManagedSseEnabled: true
+      VisibilityTimeout: 30
+    Type: AWS::SQS::Queue
+    UpdateReplacePolicy: Retain
+  SQSQueue00MyDLQfifo001uhg4:
+    DeletionPolicy: Retain
+    Properties:
+      ContentBasedDeduplication: false
+      DeduplicationScope: messageGroup
+      DelaySeconds: 0
+      FifoQueue: true
+      FifoThroughputLimit: perMessageGroupId
+      MaximumMessageSize: 262144
+      MessageRetentionPeriod: 345600
+      QueueName: MyDLQ.fifo
+      ReceiveMessageWaitTimeSeconds: 0
+      SqsManagedSseEnabled: true
+      VisibilityTimeout: 30
+    Type: AWS::SQS::Queue
+    UpdateReplacePolicy: Retain
+  SQSQueue00MyQueuefifo00V0baV:
+    DeletionPolicy: Retain
+    Properties:
+      ContentBasedDeduplication: true
+      DeduplicationScope: messageGroup
+      DelaySeconds: 0
+      FifoQueue: true
+      FifoThroughputLimit: perMessageGroupId
+      MaximumMessageSize: 262144
+      MessageRetentionPeriod: 345600
+      QueueName: MyQueue.fifo
+      ReceiveMessageWaitTimeSeconds: 0
+      RedrivePolicy:
+        deadLetterTargetArn: arn:aws:sqs:eu-north-1:513585459204:MyDLQ.fifo
+        maxReceiveCount: 10
+      SqsManagedSseEnabled: true
+      VisibilityTimeout: 30
+    Type: AWS::SQS::Queue
+    UpdateReplacePolicy: Retain
+  UnauthRole:
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action: sts:AssumeRoleWithWebIdentity
+          Effect: Deny
+          Principal:
+            Federated: cognito-identity.amazonaws.com
+          Sid: ''
+        Version: '2012-10-17'
+      RoleName:
+        Ref: UnauthRoleName
+    Type: AWS::IAM::Role
+  UpdateRolesWithIDPFunction:
+    DependsOn:
+    - AuthRole
+    - UnauthRole
+    - authlatestfullstackadtv242ef069
+    Properties:
+      Code:
+        ZipFile:
+          Fn::Join:
+          - '
+
+            '
+          - - const response = require('cfn-response');
+            - const { IAMClient, GetRoleCommand, UpdateAssumeRolePolicyCommand } =
+              require('@aws-sdk/client-iam');
+            - exports.handler = function(event, context) {
+            - '    // Don''t return promise, response.send() marks context as done
+              internally'
+            - '    const ignoredPromise = handleEvent(event, context)'
+            - '};'
+            - async function handleEvent(event, context) {
+            - '    try {'
+            - '        let authRoleName = event.ResourceProperties.authRoleName;'
+            - '        let unauthRoleName = event.ResourceProperties.unauthRoleName;'
+            - '        let idpId = event.ResourceProperties.idpId;'
+            - '        let authParamsJson = {'
+            - '            ''Version'': ''2012-10-17'','
+            - '            ''Statement'': [{'
+            - '                ''Effect'': ''Allow'','
+            - '                ''Principal'': {''Federated'': ''cognito-identity.amazonaws.com''},'
+            - '                ''Action'': ''sts:AssumeRoleWithWebIdentity'','
+            - '                ''Condition'': {'
+            - '                    ''StringEquals'': {''cognito-identity.amazonaws.com:aud'':
+              idpId},'
+            - '                    ''ForAnyValue:StringLike'': {''cognito-identity.amazonaws.com:amr'':
+              ''authenticated''}'
+            - '                }'
+            - '            }]'
+            - '        };'
+            - '        let unauthParamsJson = {'
+            - '            ''Version'': ''2012-10-17'','
+            - '            ''Statement'': [{'
+            - '                ''Effect'': ''Allow'','
+            - '                ''Principal'': {''Federated'': ''cognito-identity.amazonaws.com''},'
+            - '                ''Action'': ''sts:AssumeRoleWithWebIdentity'','
+            - '                ''Condition'': {'
+            - '                    ''StringEquals'': {''cognito-identity.amazonaws.com:aud'':
+              idpId},'
+            - '                    ''ForAnyValue:StringLike'': {''cognito-identity.amazonaws.com:amr'':
+              ''unauthenticated''}'
+            - '                }'
+            - '            }]'
+            - '        };'
+            - '        if (event.RequestType === ''Delete'') {'
+            - '            try {'
+            - '                delete authParamsJson.Statement[0].Condition;'
+            - '                delete unauthParamsJson.Statement[0].Condition;'
+            - '                authParamsJson.Statement[0].Effect = ''Deny'''
+            - '                unauthParamsJson.Statement[0].Effect = ''Deny'''
+            - '                let authParams = {PolicyDocument: JSON.stringify(authParamsJson),
+              RoleName: authRoleName};'
+            - '                let unauthParams = {PolicyDocument: JSON.stringify(unauthParamsJson),
+              RoleName: unauthRoleName};'
+            - '                const iam = new IAMClient({region: event.ResourceProperties.region});'
+            - '                let res = await Promise.all(['
+            - '                    iam.send(new GetRoleCommand({RoleName: authParams.RoleName})),'
+            - '                    iam.send(new GetRoleCommand({RoleName: unauthParams.RoleName}))'
+            - '                ]);'
+            - '                res = await Promise.all(['
+            - '                    iam.send(new UpdateAssumeRolePolicyCommand(authParams)),'
+            - '                    iam.send(new UpdateAssumeRolePolicyCommand(unauthParams))'
+            - '                ]);'
+            - '                response.send(event, context, response.SUCCESS, {});'
+            - '            } catch (err) {'
+            - '                console.log(err.stack);'
+            - '                response.send(event, context, response.SUCCESS, {Error:
+              err});'
+            - '            }'
+            - '        } else if (event.RequestType === ''Update'' || event.RequestType
+              === ''Create'') {'
+            - '            const iam = new IAMClient({region: event.ResourceProperties.region});'
+            - '            let authParams = {PolicyDocument: JSON.stringify(authParamsJson),
+              RoleName: authRoleName};'
+            - '            let unauthParams = {PolicyDocument: JSON.stringify(unauthParamsJson),
+              RoleName: unauthRoleName};'
+            - '            const res = await Promise.all(['
+            - '                iam.send(new UpdateAssumeRolePolicyCommand(authParams)),'
+            - '                iam.send(new UpdateAssumeRolePolicyCommand(unauthParams))'
+            - '            ]);'
+            - '            response.send(event, context, response.SUCCESS, {});'
+            - '        }'
+            - '    } catch (err) {'
+            - '        console.log(err.stack);'
+            - '        response.send(event, context, response.FAILED, {Error: err});'
+            - '    }'
+            - '};'
+      Handler: index.handler
+      Role:
+        Fn::GetAtt:
+        - UpdateRolesWithIDPFunctionRole
+        - Arn
+      Runtime: nodejs18.x
+      Timeout: 300
+    Type: AWS::Lambda::Function
+  UpdateRolesWithIDPFunctionOutputs:
+    Properties:
+      ServiceToken:
+        Fn::GetAtt:
+        - UpdateRolesWithIDPFunction
+        - Arn
+      authRoleName:
+        Ref: AuthRole
+      idpId:
+        Fn::GetAtt:
+        - authlatestfullstackadtv242ef069
+        - Outputs.IdentityPoolId
+      region:
+        Ref: AWS::Region
+      unauthRoleName:
+        Ref: UnauthRole
+    Type: Custom::LambdaCallout
+  UpdateRolesWithIDPFunctionRole:
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action:
+          - sts:AssumeRole
+          Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+        Version: '2012-10-17'
+      Policies:
+      - PolicyDocument:
+          Statement:
+          - Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Effect: Allow
+            Resource: arn:aws:logs:*:*:*
+          - Action:
+            - iam:UpdateAssumeRolePolicy
+            - iam:GetRole
+            Effect: Allow
+            Resource:
+              Fn::GetAtt:
+              - AuthRole
+              - Arn
+          - Action:
+            - iam:UpdateAssumeRolePolicy
+            - iam:GetRole
+            Effect: Allow
+            Resource:
+              Fn::GetAtt:
+              - UnauthRole
+              - Arn
+          Version: '2012-10-17'
+        PolicyName: UpdateRolesWithIDPFunctionPolicy
+      RoleName:
+        Fn::Join:
+        - ''
+        - - Ref: AuthRole
+          - -idp
+    Type: AWS::IAM::Role
+  apiapi212f2e80:
+    Properties:
+      Parameters:
+        env: dev
+        functionlatestfullstackadtv72f7ac0eArn:
+          Fn::GetAtt:
+          - functionlatestfullstackadtv72f7ac0e
+          - Outputs.Arn
+        functionlatestfullstackadtv72f7ac0eName:
+          Fn::GetAtt:
+          - functionlatestfullstackadtv72f7ac0e
+          - Outputs.Name
+      TemplateURL: https://s3.amazonaws.com/amplify-latestfullstackadtv-dev-c3ff6-deployment/amplify-cfn-templates/api/api212f2e80-cloudformation-template.json
+    Type: AWS::CloudFormation::Stack
+  authlatestfullstackadtv242ef069:
+    Properties:
+      Parameters:
+        aliasAttributes: ''
+        allowUnauthenticatedIdentities: false
+        authRoleArn:
+          Fn::GetAtt:
+          - AuthRole
+          - Arn
+        authSelections: identityPoolAndUserPool
+        autoVerifiedAttributes: email
+        breakCircularDependency: true
+        defaultPasswordPolicy: false
+        dependsOn: ''
+        emailVerificationMessage: Your verification code is {####}
+        emailVerificationSubject: Your verification code
+        env: dev
+        identityPoolName: latestfullstackadtv242ef069_identitypool_242ef069
+        mfaConfiguration: 'OFF'
+        mfaTypes: SMS Text Message
+        passwordPolicyCharacters: ''
+        passwordPolicyMinLength: 8
+        requiredAttributes: email
+        resourceName: latestfullstackadtv242ef069
+        resourceNameTruncated: latest242ef069
+        serviceName: Cognito
+        sharedId: 242ef069
+        smsAuthenticationMessage: Your authentication code is {####}
+        smsVerificationMessage: Your verification code is {####}
+        unauthRoleArn:
+          Fn::GetAtt:
+          - UnauthRole
+          - Arn
+        useDefault: default
+        useEnabledMfas: true
+        userPoolGroupList: ''
+        userPoolName: latestfullstackadtv242ef069_userpool_242ef069
+        usernameCaseSensitive: false
+        userpoolClientGenerateSecret: false
+        userpoolClientLambdaRole: latest242ef069_userpoolclient_lambda_role
+        userpoolClientReadAttributes: email
+        userpoolClientRefreshTokenValidity: 30
+        userpoolClientSetAttributes: false
+        userpoolClientWriteAttributes: email
+      TemplateURL: https://s3.amazonaws.com/amplify-latestfullstackadtv-dev-c3ff6-deployment/amplify-cfn-templates/auth/latestfullstackadtv242ef069-cloudformation-template.json
+    Type: AWS::CloudFormation::Stack
+  functionlatestfullstackadtv72f7ac0e:
+    Properties:
+      Parameters:
+        deploymentBucketName: amplify-latestfullstackadtv-dev-c3ff6-deployment
+        env: dev
+        s3Key: amplify-builds/latestfullstackadtv72f7ac0e-58623244675536475473-build.zip
+      TemplateURL: https://s3.amazonaws.com/amplify-latestfullstackadtv-dev-c3ff6-deployment/amplify-cfn-templates/function/latestfullstackadtv72f7ac0e-cloudformation-template.json
+    Type: AWS::CloudFormation::Stack
+  storageS3List:
+    Properties:
+      Parameters:
+        AuthenticatedAllowList: ALLOW
+        GuestAllowList: DISALLOW
+        authPolicyName: s3_amplify_c4c8f1d2
+        authRoleName:
+          Ref: AuthRoleName
+        bucketName: videolistbucket
+        env: dev
+        s3PermissionsAuthenticatedPrivate: s3:PutObject,s3:GetObject,s3:DeleteObject
+        s3PermissionsAuthenticatedProtected: s3:PutObject,s3:GetObject,s3:DeleteObject
+        s3PermissionsAuthenticatedPublic: s3:PutObject,s3:GetObject,s3:DeleteObject
+        s3PermissionsAuthenticatedUploads: s3:PutObject
+        s3PermissionsGuestPublic: DISALLOW
+        s3PermissionsGuestUploads: DISALLOW
+        s3PrivatePolicy: Private_policy_c4c8f1d2
+        s3ProtectedPolicy: Protected_policy_c4c8f1d2
+        s3PublicPolicy: Public_policy_c4c8f1d2
+        s3ReadPolicy: read_policy_c4c8f1d2
+        s3UploadsPolicy: Uploads_policy_c4c8f1d2
+        selectedAuthenticatedPermissions: s3:PutObject,s3:GetObject,s3:ListBucket,s3:DeleteObject
+        selectedGuestPermissions: ''
+        unauthPolicyName: s3_amplify_c4c8f1d2
+        unauthRoleName:
+          Ref: UnauthRoleName
+      TemplateURL: https://s3.amazonaws.com/amplify-latestfullstackadtv-dev-c3ff6-deployment/amplify-cfn-templates/storage/cloudformation-template.json
+    Type: AWS::CloudFormation::Stack
