@@ -30,7 +30,7 @@ phases:
       - cd ../..
 
       - echo "Packaging CRUDWallet Lambda function..."
-      - cd Functions/CRUDWallet  # Adjust path if needed
+      - cd Functions/CRUDWallet
       - echo "Current directory: $(pwd)"
       - echo "Listing contents of Functions/CRUDWallet:"
       - ls -l
@@ -40,7 +40,7 @@ phases:
       - echo "Listing contents of Functions/CRUDWallet/package:"
       - ls -l
       - zip -r ../../CRUDWallet.zip .
-      - cd ../.. 
+      - cd ../..
 
   post_build:
     commands:
