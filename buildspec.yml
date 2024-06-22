@@ -29,7 +29,7 @@ phases:
       
       - ls -l
       - echo "Packaging CRUDWallet Lambda function..."
-      - cd Functions/CRUDWallet || { echo "Directory Functions/CRUDWallet does not exist"; exit 1; }
+      - cd CRUDWallet
       - ls -l
       - mkdir -p package
       - cp -r *.py package/
