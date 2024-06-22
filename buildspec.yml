@@ -18,31 +18,29 @@ phases:
     commands:
       - echo "Packaging CRUDOrders Lambda function..."
       - cd Functions/CRUDOrders
-      - ls -l                   # List contents of current directory for debugging
-      - ls -l ../               # List contents of parent directory for debugging
-      - if [ -d "package" ]; then rm -r package; fi  # Clean up existing package directory if exists
+      - echo "Current directory: $(pwd)"
+      - echo "Listing contents of Functions/CRUDOrders:"
+      - ls -l
       - mkdir -p package
       - cp -r *.py package/
       - cd package
+      - echo "Listing contents of Functions/CRUDOrders/package:"
+      - ls -l
       - zip -r ../../CRUDOrders.zip .
       - cd ../..
 
       - echo "Packaging CRUDWallet Lambda function..."
-      - cd Functions
-      - if [ -d "CRUDWallet" ]; then
-          cd CRUDWallet;
-          ls -l               # List contents of CRUDWallet directory for debugging
-          ls -l ../           # List contents of parent directory for debugging
-          if [ -d "package" ]; then rm -r package; fi  # Clean up existing package directory if exists
-          mkdir -p package
-          cp -r *.py package/
-          cd package
-          zip -r ../../CRUDWallet.zip .
-          cd ../../Functions   # Go back to Functions directory
-        else
-          echo "Directory Functions/CRUDWallet does not exist or is in the wrong location."
-          touch CRUDWallet.zip  # Create an empty file to avoid build failure
-        fi
+      - cd Functions/CRUDWallet  # Adjust path if needed
+      - echo "Current directory: $(pwd)"
+      - echo "Listing contents of Functions/CRUDWallet:"
+      - ls -l
+      - mkdir -p package
+      - cp -r *.py package/
+      - cd package
+      - echo "Listing contents of Functions/CRUDWallet/package:"
+      - ls -l
+      - zip -r ../../CRUDWallet.zip .
+      - cd ../.. 
 
   post_build:
     commands:
