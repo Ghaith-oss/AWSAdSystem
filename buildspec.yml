@@ -25,12 +25,12 @@ phases:
       - cd ../..
 
       - echo "Packaging CRUDWallet Lambda function..."
-      - cd Functions/CRUDWallet
+      - cd ../CRUDWallet  # Adjust path if needed
       - mkdir -p package
       - cp -r *.py package/
       - cd package
       - zip -r ../../CRUDWallet.zip .
-      - cd ../..
+      - cd ../.. 
 
   post_build:
     commands:
