@@ -18,6 +18,7 @@ phases:
     commands:
       - echo "Packaging CRUDOrders Lambda function..."
       - cd Functions/CRUDOrders
+      - mkdir -p package
       - cp -r *.py package/
       - cd package
       - pip install --target=./ -r requirements.txt
