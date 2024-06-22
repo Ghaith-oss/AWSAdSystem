@@ -40,6 +40,20 @@ phases:
       - cd ..
       - ls -l
       - cd ..
+
+      - ls -l
+      - echo "Packaging CallBackLambda function..."
+      - cd CallBackLambda
+      - ls -l
+      - mkdir -p package
+      - cp -r *.py package/
+      - cd package
+      - ls -l
+      - zip -r ../../CallBackLambda.zip .
+      - ls -l
+      - cd ..
+      - ls -l
+      - cd ..
       - cd ..
 
       - ls -l
