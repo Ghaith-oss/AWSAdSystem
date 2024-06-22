@@ -821,8 +821,7 @@ Resources:
       Code:
         S3Bucket:
           Ref: LambdaFunction00CRUDOrders00paSCaCodeS3BucketOneOfaTB6t
-        S3Key:
-          Ref: LambdaFunction00CRUDOrders00paSCaCodeS3KeyOneOfankkE
+        S3Key: path/to/your/lambda/code.zip
       Description: A simple backend (read/write to DynamoDB) with a RESTful API endpoint
         using Amazon API Gateway.
       EphemeralStorage:
@@ -852,6 +851,9 @@ Resources:
         Mode: PassThrough
     Type: AWS::Lambda::Function
     UpdateReplacePolicy: Retain
+  LambdaFunction00CRUDOrders00paSCaCodeS3BucketOneOfaTB6t:
+    DeletionPolicy: Retain
+    Type: AWS::S3::Bucket
   LambdaFunction00CRUDWallet00Btjnv:
     DeletionPolicy: Retain
     Properties:
@@ -860,8 +862,7 @@ Resources:
       Code:
         S3Bucket:
           Ref: LambdaFunction00CRUDWallet00BtjnvCodeS3BucketOneOfGk0SN
-        S3Key:
-          Ref: LambdaFunction00CRUDWallet00BtjnvCodeS3KeyOneOfC7FRg
+        S3Key: path/to/your/lambda/code.zip
       Description: ''
       EphemeralStorage:
         Size: 512
@@ -887,13 +888,15 @@ Resources:
         Mode: PassThrough
     Type: AWS::Lambda::Function
     UpdateReplacePolicy: Retain
+  LambdaFunction00CRUDWallet00BtjnvCodeS3BucketOneOfGk0SN:
+    DeletionPolicy: Retain
+    Type: AWS::S3::Bucket
   LambdaFunction00CallbackLambda0049aKK:
     Properties:
       Code:
         S3Bucket:
           Ref: LambdaFunction00CallbackLambda0049aKKCodeS3Bucket
-        S3Key:
-          Ref: LambdaFunction00CallbackLambda0049aKKCodeS3Key
+        S3Key: path/to/your/lambda/code.zip
       Description: A Lambda function example
       Handler: lambda_function.lambda_handler
       MemorySize: 512
@@ -907,16 +910,6 @@ Resources:
   LambdaFunction00CallbackLambda0049aKKCodeS3Bucket:
     DeletionPolicy: Retain
     Type: AWS::S3::Bucket
-  LambdaFunction00CallbackLambda0049aKKCodeS3Key:
-    Properties:
-      BucketName:
-        Ref: LambdaFunction00CallbackLambda0049aKKCodeS3Bucket
-      Key: path/to/your/lambda/code.zip
-      ServiceToken:
-        Fn::GetAtt:
-        - S3KeyLookupFunction
-        - Arn
-    Type: Custom::S3Key
   LambdaPermission00functionCRUDOrders006784D:
     DeletionPolicy: Retain
     Properties:
