@@ -25,7 +25,7 @@ phases:
       - cd ../..
 
       - echo "Packaging CRUDWallet Lambda function..."
-      - cd ../CRUDWallet  # Adjust path if needed
+      - cd Functions/CRUDWallet  # Adjust path if needed
       - mkdir -p package
       - cp -r *.py package/
       - cd package
