@@ -12,7 +12,6 @@ phases:
   pre_build:
     commands:
       - echo "Running pre-build actions..."
-      # Add any pre-build actions here, such as running tests or other checks
 
   build:
     commands:
