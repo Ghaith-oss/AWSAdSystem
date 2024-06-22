@@ -36,6 +36,7 @@ phases:
       - cd package
       - ls -l
       - zip -r ../../CRUDWallet.zip .
+      - ls -l
       - cd ..
       - ls -l
       - cd ..
@@ -52,9 +53,11 @@ phases:
     commands:
       - echo "Uploading packaged functions and stack template to S3..."
       - ls -l
+      - aws s3 cp stack.zip s3://deployment-ad-system/
+      - cd ..
+      - cd Functions
       - aws s3 cp CRUDOrders.zip s3://deployment-ad-system/
       - aws s3 cp CRUDWallet.zip s3://deployment-ad-system/
-      - aws s3 cp stack.zip s3://deployment-ad-system/
 
 artifacts:
   files:
