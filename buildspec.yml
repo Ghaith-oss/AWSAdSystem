@@ -47,8 +47,8 @@ phases:
 
 artifacts:
   files:
-    - Functions/CRUDOrders/CRUDOrders.zip
-    - Functions/CRUDWallet/CRUDWallet.zip
+    - CRUDOrders.zip
+    - CRUDWallet.zip
 
 environment:
   variables:
