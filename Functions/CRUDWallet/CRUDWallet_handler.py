@@ -8,6 +8,9 @@ import urllib.request
 dynamo = boto3.resource('dynamodb')
 table = dynamo.Table('Credits')
 
+# Initialize an SQS client
+sqs = boto3.client('sqs')
+
 # Set up logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -75,67 +78,86 @@ def get_wallet(owner_id):
         return {'Owner_id': owner_id, 'Wallet': decimal.Decimal(0)}
     return response['Item']
 
-def lambda_handler(event, context):
-    logger.info(f"Received event: {json.dumps(event)}")
+def enqueue_operation(message, queue_url):
     try:
-        if 'Records' in event:
-            for record in event['Records']:
-                try:
-                    logger.info(f"Received record: {record}")
-                    message_body = json.loads(record['body'])
-                    logger.info(f"Parsed message body: {message_body}")
-
-                    http_method = message_body.get('httpMethod')
-                    operation_type = message_body.get('operationType')
-                    data = message_body.get('data', {})
-                    callback_url = message_body.get('callbackUrl', None)
-
-                    owner_id = data.get('owner_id', '')
-                    wallet_number = decimal.Decimal(data.get('wallet_number', 0))
-
-                    operation_result = {}
-                    if operation_type == 'addFunds':
-                        if not owner_id or wallet_number <= 0:
-                            logger.error(f"Missing required fields for addFunds operation: {data}")
-                            continue
-                        add_funds(owner_id, wallet_number)
-                        wallet = get_wallet(owner_id)
-                        operation_result['status'] = 'success'
-                        operation_result['message'] = 'Funds added successfully'
-                        operation_result['data'] = wallet
-                    elif operation_type == 'deductFunds':
-                        if not owner_id or wallet_number <= 0:
-                            logger.error(f"Missing required fields for deductFunds operation: {data}")
-                            continue
-                        try:
-                            deduct_funds(owner_id, wallet_number)
-                            wallet = get_wallet(owner_id)
-                            operation_result['status'] = 'success'
-                            operation_result['message'] = 'Funds deducted successfully'
-                            operation_result['data'] = wallet
-                        except ValueError as e:
-                            operation_result['status'] = 'error'
-                            operation_result['message'] = str(e)
-                    elif operation_type == 'getWallet':
-                        if not owner_id:
-                            logger.error(f"Missing required fields for getWallet operation: {data}")
-                            continue
-                        wallet = get_wallet(owner_id)
-                        operation_result['status'] = 'success'
-                        operation_result['message'] = 'Wallet retrieved successfully'
-                        operation_result['data'] = wallet
-                    else:
-                        logger.error(f"Unsupported operation type: {operation_type}")
-                        continue
-
-                    if callback_url:
-                        send_callback(callback_url, operation_result)
-                except Exception as e:
-                    logger.error(f"Unhandled exception: {e}", exc_info=True)
-                    continue
-        elif 'callbackUrl' in event:
-            callback_url = event.get('callbackUrl')
-            message = event.get('message', 'No message')
-            send_callback(callback_url, message)
+        sqs.send_message(
+            QueueUrl=queue_url,
+            MessageBody=json.dumps(message, cls=DecimalEncoder),  # Use DecimalEncoder here
+        )
+        return {
+            'statusCode': 200,
+            'body': json.dumps({'message': 'Operation queued for processing'}, cls=DecimalEncoder)  # Use DecimalEncoder here
+        }
     except Exception as e:
-        logger.error(f"Unhandled exception: {e}", exc_info=True)
+        logger.error(f"Error enqueuing message: {e}", exc_info=True)
+        return {
+            'statusCode': 500,
+            'body': json.dumps({'error': 'Failed to enqueue operation'}, cls=DecimalEncoder)  # Use DecimalEncoder here
+        }
+
+def lambda_handler(event, context):
+    logger.info(f"Received event: {json.dumps(event, cls=DecimalEncoder)}")  # Use DecimalEncoder here
+
+    if 'Records' in event:
+        # Handle SQS records
+        for record in event['Records']:
+            try:
+                logger.info(f"Received record: {record}")
+                message_body = json.loads(record['body'])
+                message = json.loads(message_body['Message'])  # Parse 'Message' JSON
+                logger.info(f"Parsed message body: {message}")
+
+                operation_type = message.get('operationType')
+                data = message.get('data', {})
+                callback_url = message.get('callbackUrl', None)
+                owner_id = data.get('owner_id', '')
+                wallet_number = decimal.Decimal(data.get('wallet_number', 0))
+                operation_result = {}
+              
+                if operation_type == 'addFunds':
+                    if not owner_id or wallet_number <= 0:
+                        logger.error(f"Missing required fields for addFunds operation: {data}")
+                        continue
+                    add_funds(owner_id, wallet_number)
+                    wallet = get_wallet(owner_id)
+                    operation_result['status'] = 'success'
+                    operation_result['message'] = 'Funds added successfully'
+                    operation_result['data'] = wallet
+                    operation_result['callback_url'] = callback_url
+                elif operation_type == 'deductFunds':
+                    if not owner_id or wallet_number <= 0:
+                        logger.error(f"Missing required fields for deductFunds operation: {data}")
+                        continue
+                    try:
+                        deduct_funds(owner_id, wallet_number)
+                        wallet = get_wallet(owner_id)
+                        operation_result['status'] = 'success'
+                        operation_result['message'] = 'Funds deducted successfully'
+                        operation_result['data'] = wallet
+                        operation_result['callback_url'] = callback_url
+                    except ValueError as e:
+                        operation_result['status'] = 'error'
+                        operation_result['message'] = str(e)
+                       
+                elif operation_type == 'getWallet':
+                    if not owner_id:
+                        logger.error(f"Missing required fields for getWallet operation: {data}")
+                        continue
+                    wallet = get_wallet(owner_id)
+                    operation_result['status'] = 'success'
+                    operation_result['message'] = 'Wallet retrieved successfully'
+                    operation_result['data'] = wallet
+                    operation_result['callback_url'] = callback_url
+                else:
+                    logger.error(f"Unknown operation type: {operation_type}")
+                    continue
+
+                if callback_url:
+                    queue_url = 'https://sqs.eu-north-1.amazonaws.com/513585459204/CallBackQueue'
+                    enqueue_operation(operation_result, queue_url)
+
+            except Exception as e:
+                logger.error(f"Unhandled exception: {e}", exc_info=True)
+                continue
+
+    logger.info("CallbackLambda execution completed.")

@@ -6,6 +6,8 @@ import urllib.request
 
 # Initialize a DynamoDB resource
 dynamo = boto3.resource('dynamodb')
+# Initialize an SQS client
+sqs = boto3.client('sqs')
 
 # Set up logging
 logger = logging.getLogger()
@@ -26,6 +28,7 @@ class DecimalEncoder(json.JSONEncoder):
 def get_all_items(table_name):
     logger.info(f"Getting all items from table: {table_name}")
     table = dynamo.Table(table_name)
+    logger.info(f"boto3 version: {boto3.__version__}")  # Check boto3 version
     try:
         response = table.scan()
         return response.get('Items', [])
@@ -58,19 +61,26 @@ def update_orders(table_name, ids, new_order_owner, new_order_time, new_order_Ur
             logger.error(f"Error updating order for ID {id}: {e}")
             update_results.append({'ID': id, 'status': 'error', 'error': str(e)})
     return update_results
-
-def send_callback(callback_url, data):
-    logger.info(f"Sending callback to URL: {callback_url} with data: {data}")
+    
+def enqueue_operation(message, queue_url):
     try:
-        req = urllib.request.Request(callback_url, method='POST', data=json.dumps(data, cls=DecimalEncoder).encode('utf-8'))
-        req.add_header('Content-Type', 'application/json')
-        with urllib.request.urlopen(req) as response:
-            logger.info(f"Callback response: {response.status} - {response.read().decode('utf-8')}")
+        sqs.send_message(
+            QueueUrl=queue_url,
+            MessageBody=json.dumps(message, cls=DecimalEncoder),  # Use DecimalEncoder here
+        )
+        return {
+            'statusCode': 200,
+            'body': json.dumps({'message': 'Operation queued for processing'}, cls=DecimalEncoder)  # Use DecimalEncoder here
+        }
     except Exception as e:
-        logger.error(f"Error sending callback: {e}")
+        logger.error(f"Error enqueuing message: {e}", exc_info=True)
+        return {
+            'statusCode': 500,
+            'body': json.dumps({'error': 'Failed to enqueue operation'}, cls=DecimalEncoder)  # Use DecimalEncoder here
+        }
 
 def lambda_handler(event, context):
-    logger.info(f"Received event: {json.dumps(event)}")
+    logger.info(f"Received event: {json.dumps(event, cls=DecimalEncoder)}")  # Use DecimalEncoder here
 
     if 'Records' in event:
         # Handle SQS records
@@ -78,48 +88,51 @@ def lambda_handler(event, context):
             try:
                 logger.info(f"Received record: {record}")
                 message_body = json.loads(record['body'])
-                logger.info(f"Parsed message body: {message_body}")
+                message = json.loads(message_body['Message'])  # Parse 'Message' JSON
+                logger.info(f"Parsed message body: {message}")
 
-                http_method = message_body.get('httpMethod')
-                operation_type = message_body.get('operationType')
-                data = message_body.get('data', {})
-                callback_url = message_body.get('callbackUrl', None)
-
+                operation_type = message.get('operationType')
+                data = message.get('data', {})
+                callback_url = message.get('callbackUrl', None)
                 table_name = data.get('table_name', '')
                 ids = data.get('ids', [])
-                new_order_owner = data.get('new_order_owner', '')
-                new_order_time = data.get('new_order_time', 0)
-                new_order_Url = data.get('new_order_Url', '')
-
+                new_order_owner = data.get('new_order_owner', '')  # Extract new_order_owner
+                new_order_time = data.get('new_order_time', '')  # Extract new_order_time
+                new_order_Url = data.get('new_order_Url', '')  # Extract new_order_Url
                 operation_result = {}
+
                 if operation_type == 'updateOrder':
-                    if not table_name or not ids or not new_order_owner or new_order_time <= 0 or not new_order_Url:
-                        logger.error(f"Missing required fields in the message: {data}")
+                    if not table_name:
+                        logger.error(f"Missing required table_name for update operation: {data}")
                         continue
+                    
+                    # Handle updateOrder logic
                     update_results = update_orders(table_name, ids, new_order_owner, new_order_time, new_order_Url)
                     operation_result['status'] = 'success'
-                    operation_result['message'] = 'Order update operation completed successfully'
+                    operation_result['message'] = f"Update operation completed successfully"
                     operation_result['data'] = update_results
                     operation_result['callback_url'] = callback_url
-                    if callback_url:
-                        send_callback(callback_url, operation_result)
+
                 elif operation_type == 'readOrder':
                     if not table_name:
                         logger.error(f"Missing required table_name for read operation: {data}")
                         continue
+                    
+                    # Handle readOrder logic
                     items = get_all_items(table_name)
-                    logger.info(f"Read items: {items}")
                     operation_result['status'] = 'success'
-                    operation_result['message'] = 'Order read operation completed successfully'
+                    operation_result['message'] = f"Read operation completed successfully"
                     operation_result['data'] = items
                     operation_result['callback_url'] = callback_url
-                    if callback_url:
-                        send_callback(callback_url, operation_result)
+
+                else:
+                    logger.error(f"Unknown operation type: {operation_type}")
+                    continue
+
+                if callback_url:
+                    queue_url = 'https://sqs.eu-north-1.amazonaws.com/513585459204/CallBackQueue'
+                    enqueue_operation(operation_result, queue_url)
+
             except Exception as e:
                 logger.error(f"Unhandled exception: {e}", exc_info=True)
                 continue
-    elif 'callbackUrl' in event:
-        # Handle callback
-        callback_url = event.get('callbackUrl')
-        message = event.get('message', 'No message')
-        send_callback(callback_url, message)
