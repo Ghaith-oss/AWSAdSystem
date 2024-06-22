@@ -75,10 +75,12 @@ phases:
 
 artifacts:
   files:
-    - ./AdSystemPipeLine/BuildArtif/CRUDOrders.zip
-    - ./AdSystemPipeLine/BuildArtif/CRUDWallet.zip
-    - ./AdSystemPipeLine/BuildArtif/CallBackLambda.zip
-    - ./AdSystemPipeLine/BuildArtif/stack.zip
+    - stack.zip
+    - Functions/CRUDOrders.zip
+    - Functions/CRUDWallet.zip
+    - Functions/CallBackLambda.zip
+  discard-paths: yes
+  name: BuildArtifact
 
 environment:
   variables:
