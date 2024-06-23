@@ -18,6 +18,7 @@ phases:
       - echo "Packaging CRUDOrders Lambda function..."
       - cd Functions/CRUDOrders
       - mkdir -p package
+      - cp lambda_function.py package/
       - cp -r *.py package/
       - if [ -f requirements.txt ]; then pip install -r requirements.txt -t package/; fi
       - cd package
@@ -27,6 +28,7 @@ phases:
       - echo "Packaging CRUDWallet Lambda function..."
       - cd Functions/CRUDWallet
       - mkdir -p package
+      - cp lambda_function.py package/
       - cp -r *.py package/
       - if [ -f requirements.txt ]; then pip install -r requirements.txt -t package/; fi
       - cd package
@@ -36,6 +38,7 @@ phases:
       - echo "Packaging CallBackLambda function..."
       - cd Functions/CallBackLambda
       - mkdir -p package
+      - cp lambda_function.py package/
       - cp -r *.py package/
       - if [ -f requirements.txt ]; then pip install -r requirements.txt -t package/; fi
       - cd package
