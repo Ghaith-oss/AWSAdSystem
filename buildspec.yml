@@ -24,6 +24,7 @@ phases:
       - ls -l
       - mkdir -p package
       - cp lambda_function.py package/
+      - if [ -f requirements.txt ]; then pip install -r requirements.txt -t package/; fi
       - cd package
       - ls -l
       - zip -r ../../CRUDOrders.zip .
@@ -35,6 +36,7 @@ phases:
       - ls -l
       - mkdir -p package
       - cp lambda_function.py package/
+      - if [ -f requirements.txt ]; then pip install -r requirements.txt -t package/; fi
       - cd package
       - ls -l
       - zip -r ../../CRUDWallet.zip .
@@ -49,6 +51,7 @@ phases:
       - ls -l
       - mkdir -p package
       - cp lambda_function.py package/
+      - if [ -f requirements.txt ]; then pip install -r requirements.txt -t package/; fi
       - cd package
       - ls -l
       - zip -r ../../CallBackLambda.zip .
