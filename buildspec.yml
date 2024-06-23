@@ -68,7 +68,7 @@ phases:
   post_build:
     commands:
       - echo "Uploading packaged functions and stack template to S3..."
-      - aws s3 cp buildspec-deploy.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
+      - aws s3 cp buildspec-deploy.yml s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
       - ls -l
       - aws s3 cp stack.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
       - cd Functions
@@ -81,7 +81,7 @@ phases:
 artifacts:
   files:
     - stack.zip
-    - buildspec-deploy.zip
+    - buildspec-deploy.yml
     - Functions/CRUDOrders.zip
     - Functions/CRUDWallet.zip
     - Functions/CallBackLambda.zip
