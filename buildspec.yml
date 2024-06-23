@@ -68,7 +68,6 @@ phases:
   post_build:
     commands:
       - echo "Uploading packaged functions and stack template to S3..."
-      - cd tmp
       - aws s3 cp buildspec-deploy.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
       - cd ..
       - ls -l
