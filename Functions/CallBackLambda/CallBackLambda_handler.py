@@ -53,4 +53,4 @@ def lambda_handler(event, context):
                 logger.error(f"Error processing SQS record: {e}", exc_info=True)
                 continue
 
-    logger.info("CallbackLambda execution completed.")
+    logger.info("CallbackLambda execution completed.V110")

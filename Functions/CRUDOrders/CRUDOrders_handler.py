@@ -70,7 +70,7 @@ def enqueue_operation(message, queue_url):
         )
         return {
             'statusCode': 200,
-            'body': json.dumps({'message': 'Operation queued for processing'}, cls=DecimalEncoder)  # Use DecimalEncoder here
+            'body': json.dumps({'message': 'V110-Operation queued for processing'}, cls=DecimalEncoder)  # Use DecimalEncoder here
         }
     except Exception as e:
         logger.error(f"Error enqueuing message: {e}", exc_info=True)

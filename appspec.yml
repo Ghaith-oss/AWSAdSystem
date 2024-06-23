@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.12
+    commands:
+      - echo "Installing AWS CLI..."
+      - pip install --upgrade awscli
+
+  pre_build:
+    commands:
+      - echo "Running pre-deployment actions..."
+
+  build:
+    commands:
+      - echo "Downloading artifacts from S3..."
+      - aws s3 cp s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/CRUDOrders.zip /tmp/CRUDOrders.zip
+      - aws s3 cp s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/CRUDWallet.zip /tmp/CRUDWallet.zip
+      - aws s3 cp s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/CallBackLambda.zip /tmp/CallBackLambda.zip
+
+      - echo "Updating CRUDOrders Lambda function..."
+      - aws lambda update-function-code --function-name CRUDOrdersLambdaFunction --zip-file fileb:///tmp/CRUDOrders.zip
+
+      - echo "Updating CRUDWallet Lambda function..."
+      - aws lambda update-function-code --function-name CRUDWalletLambdaFunction --zip-file fileb:///tmp/CRUDWallet.zip
+
+      - echo "Updating CallBackLambda function..."
+      - aws lambda update-function-code --function-name CallBackLambdaFunction --zip-file fileb:///tmp/CallBackLambda.zip
+
+artifacts:
+  files:
+    - none
