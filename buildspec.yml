@@ -69,7 +69,6 @@ phases:
     commands:
       - echo "Uploading packaged functions and stack template to S3..."
       - aws s3 cp buildspec-deploy.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
-      - cd ..
       - ls -l
       - aws s3 cp stack.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
       - cd Functions
@@ -85,6 +84,7 @@ artifacts:
     - ./AdSystemPipeLine/BuildArtif/CRUDWallet.zip
     - ./AdSystemPipeLine/BuildArtif/CallBackLambda.zip
     - ./AdSystemPipeLine/BuildArtif/stack.zip
+    - ./AdSystemPipeLine/BuildArtif/buildspec-deply.zip
 
 environment:
   variables:
