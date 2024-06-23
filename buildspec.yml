@@ -12,58 +12,80 @@ phases:
   pre_build:
     commands:
       - echo "Running pre-build actions..."
+      # Add any pre-build actions here, such as running tests or other checks
 
   build:
     commands:
+      - ls -l
+      - cp buildspec-deploy.yml /tmp/buildspec-deploy.yml
+      - zip -r buildspec-deploy.zip /tmp/buildspec-deploy.yml
       - echo "Packaging CRUDOrders Lambda function..."
       - cd Functions/CRUDOrders
+      - ls -l
       - mkdir -p package
       - cp -r *.py package/
       - cd package
+      - ls -l
       - zip -r ../../CRUDOrders.zip .
       - cd ../..
 
+      - ls -l
       - echo "Packaging CRUDWallet Lambda function..."
-      - cd Functions/CRUDWallet
+      - cd CRUDWallet
+      - ls -l
       - mkdir -p package
       - cp -r *.py package/
       - cd package
+      - ls -l
       - zip -r ../../CRUDWallet.zip .
-      - cd ../..
+      - ls -l
+      - cd ..
+      - ls -l
+      - cd ..
 
+      - ls -l
       - echo "Packaging CallBackLambda function..."
-      - cd Functions/CallBackLambda
+      - cd CallBackLambda
+      - ls -l
       - mkdir -p package
       - cp -r *.py package/
       - cd package
+      - ls -l
       - zip -r ../../CallBackLambda.zip .
-      - cd ../..
+      - ls -l
+      - cd ..
+      - ls -l
+      - cd ..
+      - cd ..
 
-      - echo "Packaging CloudFormation stack template and buildspec-deploy.yml..."
+      - ls -l
+      - echo "Packaging CloudFormation stack template..."
       - cd CloudFormatTemplates
+      - ls -l
       - zip -r ../stack.zip stack.yml
       - cd ..
-      - cp buildspec-deploy.yml /tmp/buildspec-deploy.yml
-      - zip -r buildspec-deploy.zip /tmp/buildspec-deploy.yml
 
   post_build:
     commands:
       - echo "Uploading packaged functions and stack template to S3..."
-      - aws s3 cp stack.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
-      - aws s3 cp Functions/CRUDOrders.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
-      - aws s3 cp Functions/CRUDWallet.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
-      - aws s3 cp Functions/CallBackLambda.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
+      - cd tmp
       - aws s3 cp buildspec-deploy.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
+      - cd ..
+      - ls -l
+      - aws s3 cp stack.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
+      - cd Functions
+      - aws s3 cp CRUDOrders.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
+      - aws s3 cp CRUDWallet.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
+      - aws s3 cp CallBackLambda.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
+      - cd ..
+      - ls -l
 
 artifacts:
   files:
-    - stack.zip
-    - Functions/CRUDOrders.zip
-    - Functions/CRUDWallet.zip
-    - Functions/CallBackLambda.zip
-    - buildspec-deploy.zip
-  discard-paths: yes
-  name: BuildArtifact
+    - ./AdSystemPipeLine/BuildArtif/CRUDOrders.zip
+    - ./AdSystemPipeLine/BuildArtif/CRUDWallet.zip
+    - ./AdSystemPipeLine/BuildArtif/CallBackLambda.zip
+    - ./AdSystemPipeLine/BuildArtif/stack.zip
 
 environment:
   variables:
