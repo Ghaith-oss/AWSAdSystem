@@ -14,5 +14,5 @@ This function relies on the following dependencies:
 
 ## Usage
 
-To use this Lambda function, follow the instructions in the accompanying documentation.
+Too use this Lambda function, follow the instructions in the accompanying documentation.
 
