@@ -27,8 +27,8 @@ phases:
       - echo "Updating CRUDWallet Lambda function..."
       - aws lambda update-function-code --function-name CRUDWallet --zip-file fileb:///tmp/CRUDWallet.zip
 
-      - echo "Updating CallBackLambda function..."
-      - aws lambda update-function-code --function-name CallBackLambda --zip-file fileb:///tmp/CallBackLambda.zip
+      - echo "Updating CallbackLambda function..."
+      - aws lambda update-function-code --function-name CallbackLambda --zip-file fileb:///tmp/CallBackLambda.zip
 
 artifacts:
   files:
