@@ -80,11 +80,11 @@ phases:
 
 artifacts:
   files:
-    - ./deployment-ad-system/AdSystemPipeLine/BuildArtif/CRUDOrders.zip
-    - ./deployment-ad-system/AdSystemPipeLine/BuildArtif/CRUDWallet.zip
-    - ./deployment-ad-system/AdSystemPipeLine/BuildArtif/CallBackLambda.zip
-    - ./deployment-ad-system/AdSystemPipeLine/BuildArtif/stack.zip
-    - ./deployment-ad-system/AdSystemPipeLine/BuildArtif/buildspec-deply.zip
+    - stack.zip
+    - buildspec-deploy.zip
+    - Functions/CRUDOrders.zip
+    - Functions/CRUDWallet.zip
+    - Functions/CallBackLambda.zip
 
 environment:
   variables:
