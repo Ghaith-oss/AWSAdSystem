@@ -1,12 +1,11 @@
-# CRUD Orders Lambda Function
+# CallBack Lambda Function
 
-This Lambda function performs CRUD operations on a DynamoDB table for managing orders.
+This Lambda function performs URL CallBack operations on a the messages responses.
 
 ## Functionality
 
 The Lambda function supports the following operations:
-- Update Order
-- Read Order
+- SendCallBack
 
 ## Dependencies
 
@@ -15,5 +14,5 @@ This function relies on the following dependencies:
 
 ## Usage
 
-To use this Lambda function, follow the instructions in the accompanying documentation.
+Too use this Lambda function, follow the instructions in the accompanying documentation.
 
