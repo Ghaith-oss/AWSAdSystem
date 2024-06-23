@@ -22,13 +22,13 @@ phases:
       - aws s3 cp s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/CallBackLambda.zip /tmp/CallBackLambda.zip
 
       - echo "Updating CRUDOrders Lambda function..."
-      - aws lambda update-function-code --function-name CRUDOrdersLambdaFunction --zip-file fileb:///tmp/CRUDOrders.zip
+      - aws lambda update-function-code --function-name CRUDOrders --zip-file fileb:///tmp/CRUDOrders.zip
 
       - echo "Updating CRUDWallet Lambda function..."
-      - aws lambda update-function-code --function-name CRUDWalletLambdaFunction --zip-file fileb:///tmp/CRUDWallet.zip
+      - aws lambda update-function-code --function-name CRUDWallet --zip-file fileb:///tmp/CRUDWallet.zip
 
       - echo "Updating CallBackLambda function..."
-      - aws lambda update-function-code --function-name CallBackLambdaFunction --zip-file fileb:///tmp/CallBackLambda.zip
+      - aws lambda update-function-code --function-name CallBackLambda --zip-file fileb:///tmp/CallBackLambda.zip
 
 artifacts:
   files:
