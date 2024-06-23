@@ -11,6 +11,8 @@ phases:
   pre_build:
     commands:
       - echo "Running pre-deployment actions..."
+      - aws s3 cp s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/buildspec-deploy.zip /tmp/buildspec-deploy.zip
+      - unzip /tmp/buildspec-deploy.zip -d /tmp/
 
   build:
     commands:
