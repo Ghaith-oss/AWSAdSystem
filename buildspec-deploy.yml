@@ -35,6 +35,7 @@ phases:
   
   post_build:
     commands:
+      - ls -l
       - echo "Running integration tests..."
       - pytest integration_tests/
 
