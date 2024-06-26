@@ -7,6 +7,9 @@ phases:
     commands:
       - echo "Installing AWS CLI..."
       - pip install --upgrade awscli
+      - pip install boto3==1.34.42
+      - pip install pytest
+      - pip install requests      
 
   pre_build:
     commands:
@@ -29,6 +32,11 @@ phases:
 
       - echo "Updating CallbackLambda function..."
       - aws lambda update-function-code --function-name CallbackLambda --zip-file fileb:///tmp/CallBackLambda.zip
+  
+  post_build:
+    commands:
+      - echo "Running integration tests..."
+      - pytest integration_tests/
 
 artifacts:
   files:
