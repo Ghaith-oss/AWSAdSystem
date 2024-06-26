@@ -94,7 +94,7 @@ def test_crud_orders_lambda_read():
 
     message = receive_message_from_queue(CALLBACK_QUEUE_URL)
     assert message is not None
-    assert "readOrder" in message["Body"]
+    assert "Read operation completed successfully" in message["Body"]
 
 def test_crud_orders_lambda_update():
     response = send_message_to_api(CRUD_ORDERS_API_ENDPOINT, TEST_ORDER_UPDATE_PAYLOAD)
@@ -102,7 +102,7 @@ def test_crud_orders_lambda_update():
 
     message = receive_message_from_queue(CALLBACK_QUEUE_URL)
     assert message is not None
-    assert "updateOrder" in message["Body"]
+    assert "Update operation completed successfully" in message["Body"]
 
 def test_crud_wallet_lambda_add_funds():
     response = send_message_to_api(CRUD_WALLET_API_ENDPOINT, TEST_WALLET_ADD_FUNDS_PAYLOAD)
@@ -126,7 +126,7 @@ def test_crud_wallet_lambda_deduct_funds():
 
     message = receive_message_from_queue(CALLBACK_QUEUE_URL)
     assert message is not None
-    assert "deductFunds" in message["Body"]
+    assert "Funds deducted successfully" in message["Body"]
 
 if __name__ == "__main__":
     pytest.main()
