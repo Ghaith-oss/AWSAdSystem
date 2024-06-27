@@ -75,9 +75,9 @@ def fetch_most_recent_lambda_log(lambda_function_name):
         )
         
         if 'events' in log_events_response and len(log_events_response['events']) > 0:
-            log_event = log_events_response['events'][0]
+            log_event = log_events_response['events']
             print(f"Log Event retrieved:\n{log_event}")
-            return log_events_response['events'][0]
+            return log_events_response['events']
         else:
             return None
     except ClientError as e:
