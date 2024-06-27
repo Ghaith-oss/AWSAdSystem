@@ -39,25 +39,23 @@ def invoke_lambda_function(payload):
     response = requests.post(CRUD_ORDERS_API_ENDPOINT, headers=HEADERS, json=payload)
     return response
 
-def get_latest_lambda_invocation(lambda_function_name):
+def get_most_recent_log_stream(log_group_name):
     try:
-        response = lambda_client.list_invocations(
-            FunctionName=lambda_function_name,
-            MaxItems=1,
-            Qualifier='$LATEST',  # Or specify a version or alias if needed
-            # You can add more parameters to filter by specific time or status
+        response = logs_client.describe_log_streams(
+            logGroupName=log_group_name,
+            orderBy='LastEventTime',
+            descending=True,
+            limit=1
         )
-        if 'Invocations' in response and response['Invocations']:
-            latest_invocation = response['Invocations'][0]
-            request_id = latest_invocation['RequestID']
-            log_stream_name = latest_invocation['LogStreamName']
-            return request_id, log_stream_name
+        if 'logStreams' in response and response['logStreams']:
+            log_stream_name = response['logStreams'][0]['logStreamName']
+            return log_stream_name
         else:
-            print(f"No invocations found for {lambda_function_name}")
-            return None, None
+            print(f"No log streams found for {log_group_name}")
+            return None
     except Exception as e:
-        print(f"Error getting latest invocation: {e}")
-        return None, None
+        print(f"Error getting log streams: {e}")
+        return None
 
 def fetch_lambda_logs(log_group_name, log_stream_name):
     try:
@@ -85,14 +83,19 @@ def test_lambda_function_execution(payload):
 
     # Step 2: Wait for the invocation to complete and fetch logs
     time.sleep(10)  # Adjust this based on the expected duration of Lambda execution
-    request_id, log_stream_name = get_latest_lambda_invocation(LAMBDA_FUNCTION_NAME)
-    
-    assert request_id is not None and log_stream_name is not None
 
-    logs = fetch_lambda_logs(f'/aws/lambda/{LAMBDA_FUNCTION_NAME}', log_stream_name)
+    # Get the log group name associated with the Lambda function
+    log_group_name = f'/aws/lambda/{LAMBDA_FUNCTION_NAME}'
+
+    # Fetch the most recent log stream
+    log_stream_name = get_most_recent_log_stream(log_group_name)
+    assert log_stream_name is not None, f"No log streams found for {log_group_name}"
+
+    # Fetch logs from the retrieved log stream
+    logs = fetch_lambda_logs(log_group_name, log_stream_name)
     assert logs, "No logs found for the latest invocation"
 
-    # Step 3: Check for expected log messages
+    # Check for expected log messages
     read_operation_completed = False
     for log in logs:
         if "Read operation completed successfully" in log['message']:
