@@ -58,13 +58,44 @@ def receive_message_from_queue(queue_url, wait_time=20, max_attempts=5):
     print("Failed to receive message after max attempts")
     return None
 
+def fetch_most_recent_lambda_log(lambda_function_name):
+    client = boto3.client('logs', region_name='eu-north-1')
+    
+    try:
+        response = client.describe_log_streams(
+            logGroupName=f'/aws/lambda/{lambda_function_name}',
+            orderBy='LastEventTime',
+            descending=True,
+            limit=1
+        )
+        log_stream_name = response['logStreams'][0]['logStreamName']
+        
+        log_events_response = client.get_log_events(
+            logGroupName=f'/aws/lambda/{lambda_function_name}',
+            logStreamName=log_stream_name,
+            limit=1,
+            startFromHead=True
+        )
+        
+        if 'events' in log_events_response and len(log_events_response['events']) > 0:
+            log_event = log_events_response['events'][0]
+            print(f"Log Event retrieved:\n{log_event}")
+            return log_events_response['events'][0]
+        else:
+            return None
+    except ClientError as e:
+        print(f"Error fetching logs: {e}")
+        return None
+
 def test_crud_wallet_lambda_add_funds():
     response = send_message_to_api(CRUD_WALLET_API_ENDPOINT, TEST_WALLET_ADD_FUNDS_PAYLOAD)
     assert response.status_code == 200
 
-    message = receive_message_from_queue(CALLBACK_QUEUE_URL)
-    assert message is not None
-    assert "Funds added successfully" in message["Body"]
+    log_event = fetch_most_recent_lambda_log('CallbackLambda') 
+    assert log_event is not None
+    assert "Funds added successfully" in log_event['message']
+
+   
 
 if __name__ == "__main__":
     pytest.main()
