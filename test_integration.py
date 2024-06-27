@@ -75,8 +75,9 @@ def send_message_to_api(endpoint, payload):
     response = requests.post(endpoint, headers=HEADERS, json=payload)
     return response
 
-def receive_message_from_queue(queue_url, wait_time=20, max_attempts=3):
+def receive_message_from_queue(queue_url, wait_time=20, max_attempts=5):
     for attempt in range(max_attempts):
+        print(f"Attempt {attempt + 1} to receive message from {queue_url}")
         response = sqs.receive_message(
             QueueUrl=queue_url,
             MaxNumberOfMessages=1,
@@ -84,9 +85,13 @@ def receive_message_from_queue(queue_url, wait_time=20, max_attempts=3):
         )
         messages = response.get('Messages', [])
         if messages:
+            print(f"Message received: {messages[0]}")
             return messages[0]
+        print("No messages received, retrying...")
         time.sleep(5)
+    print("Failed to receive message after max attempts")
     return None
+
 
 def test_crud_orders_lambda_read():
     response = send_message_to_api(CRUD_ORDERS_API_ENDPOINT, TEST_ORDER_READ_PAYLOAD)
