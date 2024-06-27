@@ -8,7 +8,7 @@ import json
 CRUD_ORDERS_API_ENDPOINT = "https://l0gmn7llz8.execute-api.eu-north-1.amazonaws.com/dev/MyQueue"
 CRUD_WALLET_API_ENDPOINT = "https://l0gmn7llz8.execute-api.eu-north-1.amazonaws.com/dev/CreditsQueue"
 CALLBACK_QUEUE_URL = "https://sqs.eu-north-1.amazonaws.com/513585459204/CallBackQueue"
-LAMBDA_FUNCTION_NAME = 'CallbackLambda'
+
 
 
 AUTH_TOKEN = "eyJraWQiOiJFd0xhRE45MDBYeWVyNjBxQlU4U3g3Mk9TcFVBeWd2OUx2NkpGUHRHaUljPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJkMDljMDk4Yy1mMGYxLTcwODItYzliNy1mMjA2NTMwNTIzMTMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmV1LW5vcnRoLTEuYW1hem9uYXdzLmNvbVwvZXUtbm9ydGgtMV9ibzRDOFlWNzIiLCJjb2duaXRvOnVzZXJuYW1lIjoidXNlcnRlc3QiLCJvcmlnaW5fanRpIjoiYjE2ZTYzNzktYjA2NC00MWE5LWI5YmEtNWU1MTQ2N2I4YTM2IiwiYXVkIjoiM3VlY2prbjY5YW4yaTdiZ3VyMjN0NXBtdTIiLCJldmVudF9pZCI6IjUwNTJhOTAwLWI2ZTMtNDNhMy04YmI4LTljZmUxNTM5MzViZSIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzE5NDAyMDA4LCJleHAiOjE3MTk1MjA4MDMsImlhdCI6MTcxOTUxNzIwMywianRpIjoiMWQ5OGRlZTctNTI1MS00YmI2LThhNmQtMDRlY2RmMDU4ZDkxIiwiZW1haWwiOiJnaGFpdGhhbG5hamphcjRAZ21haWwuY29tIn0.OU6n2CM5TeRKHdJl7NB4e5pkTGNDPdOmFQ69s0ig77bW3bz9HP0QsGnszi2PoBqcs4utB440PlUqLbdo2klmkUjuv5yH2r3OOeLqs_WdIVYRkV7cjk6tovEFu5HQvxTwsHhdrMIsTMI_G-2QbHBqau39uOltvy0E7WFvO6I3HKvwqzP7fQr6pPde-4wYmecVNdv2SzRgxN8M4msxPJmYgcFSRDBFb4hNzNKWGXcFBqoHy8kXK4nO7jJpM-ltJ1KDC2f__k_0jMBGMOWOCOzRHwge2dWm6eUmrxEgvFD1lB_WbgWNsBO0_6yVHlthqmeefgTiOpcAgGQO6z7OVdI-aw"
@@ -31,10 +31,9 @@ TEST_ORDER_READ_PAYLOAD = {
 sqs = boto3.client('sqs')
 
 # Initialize the Lambda client
-lambda_client = boto3.client('lambda', region_name='your-region')
-
-lambda_client = boto3.client('lambda', region_name='your-region')
-logs_client = boto3.client('logs', region_name='your-region')
+LAMBDA_FUNCTION_NAME = 'CallbackLambda'
+lambda_client = boto3.client('lambda', region_name='eu-north-1')
+logs_client = boto3.client('logs', region_name='eu-north-1')
 
 def invoke_lambda_function(payload):
     response = requests.post(CRUD_ORDERS_API_ENDPOINT, headers=HEADERS, json=payload)
@@ -78,7 +77,7 @@ def fetch_lambda_logs(log_group_name, log_stream_name):
         print(f"Error fetching logs: {e}")
         return []
 
-
+@pytest.mark.parametrize("payload", [TEST_ORDER_READ_PAYLOAD])
 def test_lambda_function_execution(payload):
     # Step 1: Invoke the Lambda function
     response = invoke_lambda_function(payload)

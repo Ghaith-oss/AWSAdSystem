@@ -78,7 +78,7 @@ def fetch_lambda_logs(log_group_name, log_stream_name):
         print(f"Error fetching logs: {e}")
         return []
 
-
+@pytest.mark.parametrize("payload", [TEST_WALLET_ADD_FUNDS_PAYLOAD])
 def test_lambda_function_execution(payload):
     # Step 1: Invoke the Lambda function
     response = invoke_lambda_function(payload)
