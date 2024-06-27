@@ -29,69 +29,76 @@ TEST_WALLET_GET_PAYLOAD = {
 
 sqs = boto3.client('sqs')
 
-def send_message_to_api(endpoint, payload):
-    response = requests.post(endpoint, headers=HEADERS, json=payload)
+# Initialize the Lambda client
+LAMBDA_FUNCTION_NAME = 'CallbackLambda'
+lambda_client = boto3.client('lambda', region_name='eu-north-1')
+logs_client = boto3.client('logs', region_name='eu-north-1')
+
+def invoke_lambda_function(payload):
+    response = requests.post(CRUD_ORDERS_API_ENDPOINT, headers=HEADERS, json=payload)
     return response
 
-def receive_message_from_queue(queue_url, wait_time=20, max_attempts=5):
-    for attempt in range(max_attempts):
-        print(f"Attempt {attempt + 1} to receive message from {queue_url}")
-        response = sqs.receive_message(
-            QueueUrl=queue_url,
-            MaxNumberOfMessages=1,
-            WaitTimeSeconds=wait_time,
-        )
-        messages = response.get('Messages', [])
-        if messages:
-            print(f"Message received: {messages[0]}")
-            receipt_handle = messages[0]['ReceiptHandle']
-             # Delete the message from the queue after processing
-            sqs.delete_message(
-                QueueUrl=queue_url,
-                ReceiptHandle=receipt_handle
-            )
-            return messages[0]
-        print("No messages received, retrying...")
-        time.sleep(5)
-    print("Failed to receive message after max attempts")
-    return None
-
-def fetch_most_recent_lambda_log(lambda_function_name):
-    client = boto3.client('logs', region_name='eu-north-1')
-    
+def get_latest_lambda_invocation(lambda_function_name):
     try:
-        response = client.describe_log_streams(
-            logGroupName=f'/aws/lambda/{lambda_function_name}',
-            orderBy='LastEventTime',
-            descending=True,
-            limit=1
+        response = lambda_client.list_invocations(
+            FunctionName=lambda_function_name,
+            MaxItems=1,
+            Qualifier='$LATEST',  # Or specify a version or alias if needed
+            # You can add more parameters to filter by specific time or status
         )
-        log_stream_name = response['logStreams'][0]['logStreamName']
-        
-        log_events_response = client.get_log_events(
-            logGroupName=f'/aws/lambda/{lambda_function_name}',
-            logStreamName=log_stream_name,
-            limit=10,
-            startFromHead=True
-        )
-        
-        if 'events' in log_events_response and len(log_events_response['events']) > 0:
-            log_event = log_events_response['events']
-            print(f"Log Event retrieved:\n{log_event}")
-            return log_events_response['events']
+        if 'Invocations' in response and response['Invocations']:
+            latest_invocation = response['Invocations'][0]
+            request_id = latest_invocation['RequestID']
+            log_stream_name = latest_invocation['LogStreamName']
+            return request_id, log_stream_name
         else:
-            return None
-    except ClientError as e:
-        print(f"Error fetching logs: {e}")
-        return None
+            print(f"No invocations found for {lambda_function_name}")
+            return None, None
+    except Exception as e:
+        print(f"Error getting latest invocation: {e}")
+        return None, None
 
-def test_crud_wallet_lambda_get_wallet():
-    response = send_message_to_api(CRUD_WALLET_API_ENDPOINT, TEST_WALLET_GET_PAYLOAD)
+def fetch_lambda_logs(log_group_name, log_stream_name):
+    try:
+        response = logs_client.get_log_events(
+            logGroupName=log_group_name,
+            logStreamName=log_stream_name,
+            limit=10,  # Adjust the limit as per your requirement
+            startFromHead=True  # Retrieve logs in reverse chronological order
+        )
+
+        if 'events' in response:
+            return response['events']
+        else:
+            print("No log events found.")
+            return []
+    except Exception as e:
+        print(f"Error fetching logs: {e}")
+        return []
+
+
+def test_lambda_function_execution(payload):
+    # Step 1: Invoke the Lambda function
+    response = invoke_lambda_function(payload)
     assert response.status_code == 200
 
-    log_event = fetch_most_recent_lambda_log('CallbackLambda') 
-    assert log_event is not None
-    assert "Wallet retrieved successfully" in log_event['message']
+    # Step 2: Wait for the invocation to complete and fetch logs
+    time.sleep(10)  # Adjust this based on the expected duration of Lambda execution
+    request_id, log_stream_name = get_latest_lambda_invocation(LAMBDA_FUNCTION_NAME)
+    
+    assert request_id is not None and log_stream_name is not None
+
+    logs = fetch_lambda_logs(f'/aws/lambda/{LAMBDA_FUNCTION_NAME}', log_stream_name)
+    assert logs, "No logs found for the latest invocation"
+
+    # Step 3: Check for expected log messages
+    read_operation_completed = False
+    for log in logs:
+        if "Wallet retrieved successfully" in log['message']:
+            read_operation_completed = True
+            break
+    
+    assert read_operation_completed, "Expected log message not found"
     
 
 if __name__ == "__main__":
