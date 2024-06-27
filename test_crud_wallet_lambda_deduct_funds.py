@@ -80,7 +80,7 @@ def test_lambda_function_execution(payload):
     assert response.status_code == 200
 
     # Step 2: Wait for the invocation to complete and fetch logs
-    time.sleep(10) 
+    time.sleep(30) 
 
     # Get the log group name associated with the Lambda function
     log_group_name = f'/aws/lambda/{LAMBDA_FUNCTION_NAME}'
