@@ -60,8 +60,8 @@ def fetch_lambda_logs(log_group_name, log_stream_name):
         response = logs_client.get_log_events(
             logGroupName=log_group_name,
             logStreamName=log_stream_name,
-            limit=20,  # Adjust the limit as per your requirement
-            startFromHead=True  # Retrieve logs in reverse chronological order
+            limit=40,  
+            startFromHead=True  
         )
 
         if 'events' in response:
@@ -80,7 +80,7 @@ def test_lambda_function_execution(payload):
     assert response.status_code == 200
 
     # Step 2: Wait for the invocation to complete and fetch logs
-    time.sleep(10)  # Adjust this based on the expected duration of Lambda execution
+    time.sleep(10) 
 
     # Get the log group name associated with the Lambda function
     log_group_name = f'/aws/lambda/{LAMBDA_FUNCTION_NAME}'
