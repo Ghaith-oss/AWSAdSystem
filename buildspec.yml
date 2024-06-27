@@ -20,7 +20,7 @@ phases:
       - cp buildspec-deploy.yml /tmp/buildspec-deploy.yml
       - zip -r buildspec-deploy.zip /tmp/buildspec-deploy.yml
       - cp test_crud_orders_lambda_read.py /tmp/test_crud_orders_lambda_read.py
-      - cp test_crud_orders_lambda_update /tmp/test_crud_orders_lambda_update.py
+      - cp test_crud_orders_lambda_update.py /tmp/test_crud_orders_lambda_update.py
       - cp test_crud_wallet_lambda_add_funds.py /tmp/test_crud_wallet_lambda_add_funds.py
       - cp test_crud_wallet_lambda_get_wallet.py /tmp/test_crud_wallet_lambda_get_wallet.py
       - cp test_crud_wallet_lambda_deduct_funds.py /tmp/test_crud_wallet_lambda_deduct_funds.py
