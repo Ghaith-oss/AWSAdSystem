@@ -35,7 +35,7 @@ lambda_client = boto3.client('lambda', region_name='eu-north-1')
 logs_client = boto3.client('logs', region_name='eu-north-1')
 
 def invoke_lambda_function(payload):
-    response = requests.post(CRUD_ORDERS_API_ENDPOINT, headers=HEADERS, json=payload)
+    response = requests.post(CRUD_WALLET_API_ENDPOINT, headers=HEADERS, json=payload)
     return response
 
 def get_most_recent_log_stream(log_group_name):
