@@ -17,49 +17,6 @@ HEADERS = {
     "Content-Type": "application/json"
 }
 
-# Replace with actual payloads
-TEST_ORDER_READ_PAYLOAD = {
-    "Message": json.dumps({
-        "operationType": "readOrder",
-        "data": {"table_name": "devices"},
-        "callbackUrl": "https://webhook.site/ed326f03-7099-42f9-a591-403a18a1b510"
-    }),
-    "MessageGroupId": "default"
-}
-
-TEST_ORDER_UPDATE_PAYLOAD = {
-    "Message": json.dumps({
-        "operationType": "updateOrder",
-        "data": {
-            "table_name": "devices",
-            "ids": ["1", "2"],
-            "new_order_owner": "owner_name",
-            "new_order_time": "2024-06-21T12:00:00Z",
-            "new_order_Url": "http://example.com/order"
-        },
-        "callbackUrl": "https://webhook.site/ed326f03-7099-42f9-a591-403a18a1b510"
-    }),
-    "MessageGroupId": "default"
-}
-
-TEST_WALLET_ADD_FUNDS_PAYLOAD = {
-    "Message": json.dumps({
-        "operationType": "addFunds",
-        "data": {"owner_id": "Some_IID", "wallet_number": 100},
-        "callbackUrl": "https://webhook.site/ed326f03-7099-42f9-a591-403a18a1b510"
-    }),
-    "MessageGroupId": "default"
-}
-
-TEST_WALLET_GET_PAYLOAD = {
-    "Message": json.dumps({
-        "operationType": "getWallet",
-        "data": {"owner_id": "Some_IID"},
-        "callbackUrl": "https://webhook.site/ed326f03-7099-42f9-a591-403a18a1b510"
-    }),
-    "MessageGroupId": "default"
-}
-
 TEST_WALLET_DEDUCT_FUNDS_PAYLOAD = {
     "Message": json.dumps({
         "operationType": "deductFunds",
@@ -97,39 +54,6 @@ def receive_message_from_queue(queue_url, wait_time=20, max_attempts=5):
         time.sleep(5)
     print("Failed to receive message after max attempts")
     return None
-
-
-def test_crud_orders_lambda_read():
-    response = send_message_to_api(CRUD_ORDERS_API_ENDPOINT, TEST_ORDER_READ_PAYLOAD)
-    assert response.status_code == 200
-
-    message = receive_message_from_queue(CALLBACK_QUEUE_URL)
-    assert message is not None
-    assert "Read operation completed successfully" in message["Body"]
-
-def test_crud_orders_lambda_update():
-    response = send_message_to_api(CRUD_ORDERS_API_ENDPOINT, TEST_ORDER_UPDATE_PAYLOAD)
-    assert response.status_code == 200
-
-    message = receive_message_from_queue(CALLBACK_QUEUE_URL)
-    assert message is not None
-    assert "Update operation completed successfully" in message["Body"]
-
-def test_crud_wallet_lambda_add_funds():
-    response = send_message_to_api(CRUD_WALLET_API_ENDPOINT, TEST_WALLET_ADD_FUNDS_PAYLOAD)
-    assert response.status_code == 200
-
-    message = receive_message_from_queue(CALLBACK_QUEUE_URL)
-    assert message is not None
-    assert "Funds added successfully" in message["Body"]
-
-def test_crud_wallet_lambda_get_wallet():
-    response = send_message_to_api(CRUD_WALLET_API_ENDPOINT, TEST_WALLET_GET_PAYLOAD)
-    assert response.status_code == 200
-
-    message = receive_message_from_queue(CALLBACK_QUEUE_URL)
-    assert message is not None
-    assert "Wallet retrieved successfully" in message["Body"]
 
 def test_crud_wallet_lambda_deduct_funds():
     response = send_message_to_api(CRUD_WALLET_API_ENDPOINT, TEST_WALLET_DEDUCT_FUNDS_PAYLOAD)

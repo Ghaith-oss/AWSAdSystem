@@ -19,7 +19,11 @@ phases:
       - ls -l
       - cp buildspec-deploy.yml /tmp/buildspec-deploy.yml
       - zip -r buildspec-deploy.zip /tmp/buildspec-deploy.yml
-      - cp test_integration.py /tmp/test_integration.py
+      - cp test_crud_orders_lambda_read.py /tmp/test_crud_orders_lambda_read.py
+      - cp test_crud_orders_lambda_update /tmp/test_crud_orders_lambda_update.py
+      - cp test_crud_wallet_lambda_add_funds.py /tmp/test_crud_wallet_lambda_add_funds.py
+      - cp test_crud_wallet_lambda_get_wallet.py /tmp/test_crud_wallet_lambda_get_wallet.py
+      - cp test_crud_wallet_lambda_deduct_funds.py /tmp/test_crud_wallet_lambda_deduct_funds.py
       - echo "Packaging CRUDOrders Lambda function..."
       - cd Functions/CRUDOrders
       - ls -l
@@ -73,7 +77,11 @@ phases:
     commands:
       - echo "Uploading packaged functions and stack template to S3..."
       - aws s3 cp buildspec-deploy.yml s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
-      - aws s3 cp test_integration.py s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
+      - aws s3 cp test_crud_orders_lambda_read.py s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
+      - aws s3 cp test_crud_orders_lambda_update.py s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
+      - aws s3 cp test_crud_wallet_lambda_add_funds.py s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
+      - aws s3 cp test_crud_wallet_lambda_get_wallet.py s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
+      - aws s3 cp test_crud_wallet_lambda_deduct_funds.py s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
       - ls -l
       - aws s3 cp stack.zip s3://deployment-ad-system/AdSystemPipeLine/BuildArtif/
       - cd Functions
@@ -86,7 +94,11 @@ phases:
 artifacts:
   files:
     - stack.zip
-    - test_integration.py
+    - test_crud_orders_lambda_read.py
+    - test_crud_orders_lambda_update.py
+    - test_crud_wallet_lambda_add_funds.py
+    - test_crud_wallet_lambda_get_wallet.py
+    - test_crud_wallet_lambda_deduct_funds.py
     - buildspec-deploy.yml
     - Functions/CRUDOrders.zip
     - Functions/CRUDWallet.zip

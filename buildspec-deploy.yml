@@ -36,7 +36,11 @@ phases:
   post_build:
     commands:
       - echo "Running integration tests..."
-      - pytest test_integration.py
+      - pytest test_crud_orders_lambda_read.py
+      - pytest test_crud_orders_lambda_update.py
+      - pytest test_crud_wallet_lambda_add_funds.py
+      - pytest test_crud_wallet_lambda_get_wallet.py
+      - pytest test_crud_wallet_lambda_deduct_funds.py
 
 artifacts:
   files:
