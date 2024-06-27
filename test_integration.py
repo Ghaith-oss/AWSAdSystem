@@ -110,7 +110,7 @@ def test_crud_wallet_lambda_add_funds():
 
     message = receive_message_from_queue(CALLBACK_QUEUE_URL)
     assert message is not None
-    assert "addFunds" in message["Body"]
+    assert "Funds added successfully" in message["Body"]
 
 def test_crud_wallet_lambda_get_wallet():
     response = send_message_to_api(CRUD_WALLET_API_ENDPOINT, TEST_WALLET_GET_PAYLOAD)
@@ -118,7 +118,7 @@ def test_crud_wallet_lambda_get_wallet():
 
     message = receive_message_from_queue(CALLBACK_QUEUE_URL)
     assert message is not None
-    assert "getWallet" in message["Body"]
+    assert "Wallet retrieved successfully" in message["Body"]
 
 def test_crud_wallet_lambda_deduct_funds():
     response = send_message_to_api(CRUD_WALLET_API_ENDPOINT, TEST_WALLET_DEDUCT_FUNDS_PAYLOAD)
