@@ -97,6 +97,7 @@ def test_lambda_function_execution(payload):
     # Check for expected log messages
     read_operation_completed = False
     for log in logs:
+        print(f"LOGS: {log}")
         if "Wallet retrieved successfully" in log['message']:
             read_operation_completed = True
             break
