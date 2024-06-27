@@ -71,12 +71,12 @@ def fetch_most_recent_lambda_log(lambda_function_name):
         log_events_response = client.get_log_events(
             logGroupName=f'/aws/lambda/{lambda_function_name}',
             logStreamName=log_stream_name,
-            limit=1,
+            limit=10,
             startFromHead=True
         )
         
-        if 'events' in log_events_response and len(log_events_response['events']) > 2:
-            log_event = log_events_response['events'][2]
+        if 'events' in log_events_response and len(log_events_response['events']) > 0:
+            log_event = log_events_response['events'][0]
             print(f"Log Event retrieved:\n{log_event}")
             return log_events_response['events'][0]
         else:
