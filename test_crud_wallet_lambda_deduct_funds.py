@@ -60,7 +60,7 @@ def fetch_lambda_logs(log_group_name, log_stream_name):
         response = logs_client.get_log_events(
             logGroupName=log_group_name,
             logStreamName=log_stream_name,
-            limit=10,  # Adjust the limit as per your requirement
+            limit=20,  # Adjust the limit as per your requirement
             startFromHead=True  # Retrieve logs in reverse chronological order
         )
 
