@@ -11,7 +11,7 @@ CALLBACK_QUEUE_URL = "https://sqs.eu-north-1.amazonaws.com/513585459204/CallBack
 
 
 
-AUTH_TOKEN = "eyJraWQiOiJFd0xhRE45MDBYeWVyNjBxQlU4U3g3Mk9TcFVBeWd2OUx2NkpGUHRHaUljPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJkMDljMDk4Yy1mMGYxLTcwODItYzliNy1mMjA2NTMwNTIzMTMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmV1LW5vcnRoLTEuYW1hem9uYXdzLmNvbVwvZXUtbm9ydGgtMV9ibzRDOFlWNzIiLCJjb2duaXRvOnVzZXJuYW1lIjoidXNlcnRlc3QiLCJvcmlnaW5fanRpIjoiYjE2ZTYzNzktYjA2NC00MWE5LWI5YmEtNWU1MTQ2N2I4YTM2IiwiYXVkIjoiM3VlY2prbjY5YW4yaTdiZ3VyMjN0NXBtdTIiLCJldmVudF9pZCI6IjUwNTJhOTAwLWI2ZTMtNDNhMy04YmI4LTljZmUxNTM5MzViZSIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzE5NDAyMDA4LCJleHAiOjE3MTk1MDEwMTMsImlhdCI6MTcxOTQ5NzQxMywianRpIjoiMTZjMjIzNjEtOGM5Ny00Mzk1LTkzODEtZDEyMzZhNzExMmQ4IiwiZW1haWwiOiJnaGFpdGhhbG5hamphcjRAZ21haWwuY29tIn0.clTKEPf8Ir3EmqnF3zHoupXHLYMZHfq5BciQFbD5cwiqr0e14erjvAHSo-YNzNYibZN0Ci0UFxc9L-FYz4Nr8wl0eNw3XhWeRLhXg-K3YZXwCDwvqza9Kz66sWxRqouHkstPG56FVBjFlEkRbLHzrlKCDBy_RNwpcUEL4NBe9O6FpIW8iEbhOOImulQZUvwim_3Sn3mYMzFbYILxQt0aBB5R6H8snOvaTIHy6nHxARn63rzI1uo6lzJMTNfm0mQh5Omu4PpZ-ZXWhNWiOCAs_PUQIw4gbs2X5jVtBmPsZSK7gOz7WGyGonXok92AbTcGjT9GAAQZLzKkFFn9u7E5Uw"
+AUTH_TOKEN = "eyJraWQiOiJFd0xhRE45MDBYeWVyNjBxQlU4U3g3Mk9TcFVBeWd2OUx2NkpGUHRHaUljPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJkMDljMDk4Yy1mMGYxLTcwODItYzliNy1mMjA2NTMwNTIzMTMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmV1LW5vcnRoLTEuYW1hem9uYXdzLmNvbVwvZXUtbm9ydGgtMV9ibzRDOFlWNzIiLCJjb2duaXRvOnVzZXJuYW1lIjoidXNlcnRlc3QiLCJvcmlnaW5fanRpIjoiYjE2ZTYzNzktYjA2NC00MWE5LWI5YmEtNWU1MTQ2N2I4YTM2IiwiYXVkIjoiM3VlY2prbjY5YW4yaTdiZ3VyMjN0NXBtdTIiLCJldmVudF9pZCI6IjUwNTJhOTAwLWI2ZTMtNDNhMy04YmI4LTljZmUxNTM5MzViZSIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzE5NDAyMDA4LCJleHAiOjE3MTk1MDM3NjYsImlhdCI6MTcxOTUwMDE2NiwianRpIjoiNWIxM2Y1MjYtMWRlNS00M2Q1LTk5NTAtM2NhMDU2ZTBlYTY2IiwiZW1haWwiOiJnaGFpdGhhbG5hamphcjRAZ21haWwuY29tIn0.I_vCeko2yrX_uQ1AFjBSSopEtTgAYFwoBRVT_3gYA8EpUMXGLvGUQp_0uHQ8-KKFWgldhF9aZIxAJ4aClB8Ol1SWcWyjNDiKi4jXf9ib626S_-GdQFB0WIsEiG1B26L2t3g50x-GklBR4JYBhFA3eDQVzIzS69hGQ0ttrMzR9Fcsnv6KQhzeJNlT4yOewZauQHgEataqiGvPOgbicQilWWJB_6ssOTaVtYIh4RHQe-r_MG5QHG7k56MpcDjgeabupTTMPZA6IFxOFQVnjnu7VzIEVF5rmZlY30wa5riHQGGU1K39UCtlgA40qbErD0ul3XvJn9YsbNImhOQxGKaNKg"
 HEADERS = {
     "auth-token": AUTH_TOKEN,
     "Content-Type": "application/json"
@@ -102,7 +102,7 @@ def test_crud_orders_lambda_update():
 
     message = receive_message_from_queue(CALLBACK_QUEUE_URL)
     assert message is not None
-    assert "Update operation completed successfully" in message["Body"]
+    assert "Update operation completed successfully" in message["body"]
 
 def test_crud_wallet_lambda_add_funds():
     response = send_message_to_api(CRUD_WALLET_API_ENDPOINT, TEST_WALLET_ADD_FUNDS_PAYLOAD)
@@ -110,7 +110,7 @@ def test_crud_wallet_lambda_add_funds():
 
     message = receive_message_from_queue(CALLBACK_QUEUE_URL)
     assert message is not None
-    assert "Funds added successfully" in message["Body"]
+    assert "Funds added successfully" in message["body"]
 
 def test_crud_wallet_lambda_get_wallet():
     response = send_message_to_api(CRUD_WALLET_API_ENDPOINT, TEST_WALLET_GET_PAYLOAD)
@@ -118,7 +118,7 @@ def test_crud_wallet_lambda_get_wallet():
 
     message = receive_message_from_queue(CALLBACK_QUEUE_URL)
     assert message is not None
-    assert "Wallet retrieved successfully" in message["Body"]
+    assert "Wallet retrieved successfully" in message["body"]
 
 def test_crud_wallet_lambda_deduct_funds():
     response = send_message_to_api(CRUD_WALLET_API_ENDPOINT, TEST_WALLET_DEDUCT_FUNDS_PAYLOAD)
@@ -126,7 +126,7 @@ def test_crud_wallet_lambda_deduct_funds():
 
     message = receive_message_from_queue(CALLBACK_QUEUE_URL)
     assert message is not None
-    assert "Funds deducted successfully" in message["Body"]
+    assert "Funds deducted successfully" in message["body"]
 
 if __name__ == "__main__":
     pytest.main()
