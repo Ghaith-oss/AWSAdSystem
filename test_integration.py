@@ -85,18 +85,14 @@ def receive_message_from_queue(queue_url, wait_time=20, max_attempts=5):
         )
         messages = response.get('Messages', [])
         if messages:
-             message = messages[0]
-              print(f"Message received: {message}")
-            receipt_handle = message["ReceiptHandle"]
+            print(f"Message received: {messages[0]}")
+                        receipt_handle = messages[0]['ReceiptHandle']
 
-
-
-            # Delete the message from the queue after processing
+             # Delete the message from the queue after processing
             sqs.delete_message(
                 QueueUrl=queue_url,
                 ReceiptHandle=receipt_handle
             )
-            print("Message deleted from the queue")
             return messages[0]
         print("No messages received, retrying...")
         time.sleep(5)
