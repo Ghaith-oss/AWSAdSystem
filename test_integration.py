@@ -102,7 +102,7 @@ def test_crud_orders_lambda_update():
 
     message = receive_message_from_queue(CALLBACK_QUEUE_URL)
     assert message is not None
-    assert "Update operation completed successfully" in message["body"]
+    assert "Update operation completed successfully" in message["Body"]
 
 def test_crud_wallet_lambda_add_funds():
     response = send_message_to_api(CRUD_WALLET_API_ENDPOINT, TEST_WALLET_ADD_FUNDS_PAYLOAD)
@@ -110,7 +110,7 @@ def test_crud_wallet_lambda_add_funds():
 
     message = receive_message_from_queue(CALLBACK_QUEUE_URL)
     assert message is not None
-    assert "Funds added successfully" in message["body"]
+    assert "Funds added successfully" in message["Body"]
 
 def test_crud_wallet_lambda_get_wallet():
     response = send_message_to_api(CRUD_WALLET_API_ENDPOINT, TEST_WALLET_GET_PAYLOAD)
@@ -118,7 +118,7 @@ def test_crud_wallet_lambda_get_wallet():
 
     message = receive_message_from_queue(CALLBACK_QUEUE_URL)
     assert message is not None
-    assert "Wallet retrieved successfully" in message["body"]
+    assert "Wallet retrieved successfully" in message["Body"]
 
 def test_crud_wallet_lambda_deduct_funds():
     response = send_message_to_api(CRUD_WALLET_API_ENDPOINT, TEST_WALLET_DEDUCT_FUNDS_PAYLOAD)
@@ -126,7 +126,7 @@ def test_crud_wallet_lambda_deduct_funds():
 
     message = receive_message_from_queue(CALLBACK_QUEUE_URL)
     assert message is not None
-    assert "Funds deducted successfully" in message["body"]
+    assert "Funds deducted successfully" in message["Body"]
 
 if __name__ == "__main__":
     pytest.main()
