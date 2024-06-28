@@ -11,7 +11,7 @@ phases:
       - pip install boto3==1.34.42
       - echo "Installing SonarQube scanner..."
       - curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-linux.zip -o sonar-scanner-cli-linux.zip
-      - unzip sonar-scanner-cli-linux.zip -d $HOME
+      - unzip -o sonar-scanner-cli-linux.zip -d $HOME
       - export PATH=$HOME/sonar-scanner-cli-linux/bin:$PATH
 
 
