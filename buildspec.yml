@@ -10,10 +10,11 @@ phases:
       - pip install --upgrade pip
       - pip install boto3==1.34.42
       - echo "Installing SonarQube scanner..."
-      - curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.12008-linux.zip -o sonar-scanner-cli.zip
-      - unzip -q sonar-scanner-cli.zip -d $HOME/sonar-scanner || { echo "Failed to extract SonarQube scanner."; ls -l $HOME; exit 1; }
-      - export PATH=$HOME/sonar-scanner/bin:$PATH
-      - which sonar-scanner || { echo "SonarQube scanner executable not found."; ls -l $HOME/sonar-scanner; exit 1; }
+      - curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.1.0.4477-linux-x64.zip -o sonar-scanner.zip
+      - unzip -q sonar-scanner.zip -d $HOME/sonar-scanner || { echo "Failed to extract SonarQube scanner."; ls -l $HOME; exit 1; }
+      - export PATH=$HOME/sonar-scanner/sonar-scanner-6.1.0.4477-linux-x64/bin:$PATH
+
+
 
 
   pre_build:
