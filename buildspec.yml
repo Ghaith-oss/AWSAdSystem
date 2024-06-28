@@ -14,9 +14,6 @@ phases:
       - unzip -q sonar-scanner.zip -d $HOME/sonar-scanner || { echo "Failed to extract SonarQube scanner."; ls -l $HOME; exit 1; }
       - export PATH=$HOME/sonar-scanner/sonar-scanner-6.1.0.4477-linux-x64/bin:$PATH
 
-
-
-
   pre_build:
     commands:
       - echo "Running pre-build actions..."
