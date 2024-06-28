@@ -4,6 +4,7 @@ phases:
   install:
     runtime-versions:
       python: 3.12
+      java: corretto17
     commands:
       - echo "Installing dependencies..."
       - pip install --upgrade pip
@@ -78,7 +79,7 @@ phases:
       - cd ..
 
       - echo "Running SonarQube analysis..."
-      - sonar-scanner -Dsonar.projectKey=Ghaith-oss_AWSAdSystem -Dsonar.organization=ghaith-oss -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=acb8d30d15e4c699ab9256399dad2000b9852dbb
+      - sonar-scanner -Dsonar.projectKey=Ghaith-oss_AWSAdSystem -Dsonar.organization=ghaith-oss -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=acb8d30d15e4c699ab9256399dad2000b9852dbb -Dsonar.sources=. -Dsonar.projectBaseDir=.
 
   post_build:
     commands:
